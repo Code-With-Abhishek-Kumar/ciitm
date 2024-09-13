@@ -1,0 +1,184 @@
+<%- include('./Include/Header.ejs') %> <%- include('./Include/nav.ejs') %>
+<div class="wave-container"></div>
+
+<style>
+  .wave-container {
+    height: 40vh;
+    background-color: #28166f;
+    position: relative;
+  }
+
+  .wave-container::before {
+    content: "";
+    width: 100%;
+    height: 39px;
+    position: absolute;
+    bottom: -0.3%;
+    left: 0;
+    background-size: auto;
+    background-repeat: repeat no-repeat;
+    background-position: 20vw bottom;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 134' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 22L33 19C82 13 133 14 200 29C267 44 333 67 400 70C467 74 533 59 600 40C667 22 733 0 800 0C867 0 933 22 1000 29C1067 37 1133 29 1167 26L1200 22V134H1167C1133 134 1067 134 1000 134C933 134 867 134 800 134C733 134 667 134 600 134C533 134 467 134 400 134C333 134 267 134 200 134C133 134 67 134 33 134H0V22.332Z' fill='%23FFF5EE'/></svg>");
+  }
+
+  @media (max-width: 850px) {
+    .wave-container::before {
+      height: 19.5px;
+    }
+  }
+</style>
+
+<div class="contact-page1">
+  <form class="contact-form">
+    <div class="contact-form-left"></div>
+    <div class="contact-form-right">
+      <div class="heading">
+        <h2 class="text-center">Contact Us</h2>
+      </div>
+
+      <div class="flex">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Your Name"
+          id="name"
+          inputmode="latin"
+        />
+      </div>
+
+      <div class="flex">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Your Email"
+          id="email"
+          inputmode="email"
+          style="text-transform: lowercase;"
+          required
+        />
+      </div>
+
+      <div class="flex">
+        <label for="number">Mobile Number</label>
+        <select
+          id="country"
+          name="country"
+          style="
+            width: 28%;
+            font-size: 0.8rem;
+            background-color: white;
+            margin-right: 8px;
+            border: none;
+          "
+        >
+          <option value="US" data-code="+1">United States (+1)</option>
+          <option value="CA" data-code="+1">Canada (+1)</option>
+          <option value="GB" data-code="+44">United Kingdom (+44)</option>
+          <option value="AU" data-code="+61">Australia (+61)</option>
+          <option value="IN" data-code="+91" selected>India (+91)</option>
+          <option value="JP" data-code="+81">Japan (+81)</option>
+          <option value="CN" data-code="+86">China (+86)</option>
+          <option value="FR" data-code="+33">France (+33)</option>
+          <option value="DE" data-code="+49">Germany (+49)</option>
+          <option value="BR" data-code="+55">Brazil (+55)</option>
+          <!-- Add more countries as needed -->
+        </select>
+        <input
+          type="tel"
+          name="number"
+          placeholder="Enter Your Phone Number"
+          id="number"
+          inputmode="tel"
+          pattern="[0-9]{10}"
+          required
+        />
+      </div>
+
+      <div class="Message flex flex-col">
+        <label for="message" style="justify-content: start;">Message</label>
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Enter Your Message"
+          style="width: 95%; height: 100px; word-wrap: break-word;"
+          autocapitalize="sentences"
+          required
+          wrap="hard"
+        ></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </div>
+  </form>
+
+  <script >
+    try {
+      // Select Form
+      let contactForm = document.querySelector(".contact-form");
+
+      // Handle Form Submit
+      contactForm.addEventListener("submit", async function (elem) {
+        elem.preventDefault();
+
+        // Taking the form value from the User
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let country = document.getElementById("country").value;
+        let number = document.getElementById("number").value;
+        let message = document.getElementById("message").value;
+console.log(country)
+
+        // Validate Form When Any filed are blank
+        if (!name || !email || !country || !number || !message) {
+          swal({
+            title: "🚨 Fields are Empty!",
+            text:
+              "⚠️ Name, email, country, number, and message are required fields. Please fill them out. ✍️",
+            icon: "error",
+            button: "Close!",
+          });
+        } else {
+          // Save Form Data in Data Base
+          // Send post Request from axios
+          response = await axios.post("/contact/form/submit", {
+            name,
+            email,
+            country,
+            number,
+            message,
+          });
+
+          swal({
+            title: "🎉 Congratulations!",
+            text: response.data.message,
+            icon: "success",
+            confirmButtonText: "Got it!",
+            customClass: {
+              title: "swal-title", // Customize title CSS class if needed
+              text: "swal-text", // Customize text CSS class if needed
+            },
+          });
+        }
+      });
+    } catch (error) {
+      if (error) {
+        swal({
+          title: "Unexpected Error",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Close",
+          customClass: {
+            title: "swal-title", // Customize title CSS class if needed
+            text: "swal-text", // Customize text CSS class if needed
+          },
+        });
+      }
+    }
+  </script>
+
+  <div class="wave-container"></div>
+</div>
+
+<%- include('./Include/Footer.ejs') %>

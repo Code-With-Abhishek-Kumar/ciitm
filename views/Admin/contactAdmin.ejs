@@ -1,0 +1,199 @@
+<!-- 
+  Template for Admin Dashboard
+  =====================================
+  This template includes the following components:
+  - Header
+  - Admin Side Bar
+  - Admin Navigation Bar
+  - Form Container with contact items
+
+  Example Use Case:
+  This template can be used to display a list of contacts with their name, email, and mobile number.
+-->
+
+<!-- Include Header -->
+
+<%- include('../Include/Header.ejs' , title="Admin DashBoard") %>
+
+<!-- Main content area -->
+
+<main class="flex">
+  <!-- Include Admin Side Bar -->
+  <%- include('../Include/AdminSideBar.ejs') %>
+
+  <!-- Admin Right Section -->
+  <div class="admin-right flex flex-col">
+    <!-- Include Admin Navigation Bar -->
+    <%- include('../Include/AdminNavBar.ejs') %>
+
+    <!-- Form Container -->
+    <div class="form_Container">
+      <!-- Form Title Section -->
+      <div class="form_title">
+        <p class="title-name">Name</p>
+        <p class="title-number">Mobile Number</p>
+        <p class="title-email">Email Id</p>
+      </div>
+
+      <!-- Contact Items Container -->
+      <div id="contact-items-div"></div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  /* -------------------------------------------------------------------------- */
+  /*                  Fetch Contact Form Data Using Axios                       */
+  /* -------------------------------------------------------------------------- */
+
+  axios
+    .get("/admin/contact/Inbox/message")
+    .then((result) => {
+     
+
+      /* -------------------------------------------------------------------------- */
+      /*              Handle Backend Error if Exists                               */
+      /* -------------------------------------------------------------------------- */
+      if (result.data.error) {
+        swal({
+          title: "Something Went Wrong",
+          text: result.data.message,
+          icon: "error",
+          confirmButtonText: "Got it!",
+          customClass: {
+            title: "swal-title", // Customize title CSS class if needed
+            text: "swal-text", // Customize text CSS class if needed
+          },
+        });
+      } else {
+        /* -------------------------------------------------------------------------- */
+        /*              Render Each Contact Items if No Error                             */
+        /* -------------------------------------------------------------------------- */
+        const contactItemsDiv = document.getElementById(
+          "contact-items-div"
+        );
+
+
+   
+        result.data.forEach((message) => {
+          contactItemsDiv.innerHTML += `
+      <!-- Contact Item Template -->
+      <div class="contact-item">
+        <!-- Contact Name -->
+        <div class="contact-name">
+          <img
+            src="https://img.icons8.com/?size=100&id=11779&format=png&color=000000"
+            alt="Contact Avatar"
+          />
+          <span class="name">${message.name}</span>
+        </div>
+        <!-- Contact Mobile Number -->
+        <div class="contact-mobileNo">
+          <img
+            src="https://img.icons8.com/?size=100&id=jShwZ2RCyPSO&format=png&color=000000"
+            alt="Phone Icon"
+          />
+          <span class="countryCode" style="margin-right: 1vw;">+91</span>
+          <span class="number">${message.number}</span>
+        </div>
+        <!-- Contact Email -->
+        <div class="contact-email">
+          <img
+            src="https://img.icons8.com/?size=100&id=pJJmXPomYuPv&format=png&color=000000"
+            alt="Email Icon"
+          />
+          <span class="email">${message.email}</span>
+        </div>
+        <!-- Contact Item Controls -->
+        <div class="contact-item-Controll">
+          <a href="${message._id}">
+            <i class="fa-solid fa-folder-open"></i>
+          </a>
+          <a href="/admin/contact/Inbox/message/delete/${message._id}">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </div>
+      </div>
+    `;
+        });
+
+        /* -------------------------------------------------------------------------- */
+        /*            Handle Deletion of Contact Items                                */
+        /* -------------------------------------------------------------------------- */
+
+
+               
+        document
+          .querySelectorAll(".contact-item-Controll a")
+          .forEach((link) => {
+            link.addEventListener("click", async (event) => {
+              event.preventDefault();
+
+              const url = event.target.closest("a").href;
+              console.log(url);
+
+              try {
+                const response = await axios.delete(url);
+                console.log(response.data);
+
+                if (response.data.message) {
+                  swal({
+                    title: "🎉 Congratulations!",
+                    text: response.data.message,
+                    icon: "success",
+                    confirmButtonText: "Got it!",
+                    customClass: {
+                      title: "swal-title", // Customize title CSS class if needed
+                      text: "swal-text", // Customize text CSS class if needed
+                    },
+                  });
+               // Handle Page Reload after 5 Second
+                  setTimeout(function(){
+                    
+                    location.reload()
+                  },1000);
+                  
+
+                
+
+        
+              }
+
+
+                 
+                
+
+
+
+              } catch (error) {
+                swal({
+                  title: "Error",
+                  text: error.message,
+                  icon: "error",
+                  confirmButtonText: "Got it!",
+                  customClass: {
+                    title: "swal-title", // Customize title CSS class if needed
+                    text: "swal-text", // Customize text CSS class if needed
+                  },
+                });
+              }
+            });
+          });
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+
+      swal({
+        title: "Something Went Wrong",
+        text: err.message + '⚠️',
+        icon: "error",
+        confirmButtonText: "Got it!",
+        customClass: {
+          title: "swal-title", // Customize title CSS class if needed
+          text: "swal-text", // Customize text CSS class if needed
+        },
+      });
+    });
+</script>

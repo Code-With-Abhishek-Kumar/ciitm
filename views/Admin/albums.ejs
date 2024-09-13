@@ -1,0 +1,126 @@
+<!-- 
+  Template for Admin Dashboard
+  =====================================
+  This template includes the following components:
+  - Header
+  - Admin Side Bar
+  - Admin Navigation Bar
+  - Form Container with Albums items
+
+  Example Use Case:
+  This template can be used to display a list of contacts with their name, email, and mobile number.
+-->
+
+<!-- Include Header -->
+
+<%- include('../Include/Header.ejs' , title="Create Album") %>
+
+<!-- Main content area -->
+
+<main class="flex">
+  <!-- Include Admin Side Bar -->
+  <%- include('../Include/AdminSideBar.ejs') %>
+
+  <!-- Admin Right Section -->
+  <div class="admin-right flex flex-col">
+    <!-- Include Admin Navigation Bar -->
+    <%- include('../Include/AdminNavBar.ejs') %>
+
+    <!-- Form Container -->
+    <div class="form_Container">
+      <!-- Form Title Section -->
+      <div class="form_title flex align-center justify-center">
+        <p class="title-name text-center">Create Albums</p>
+      </div>
+
+      <!-- Albums Items Container -->
+      <div id="albums-items-div">
+        <form method="post">
+          <div class="">
+            <label for="album-name">Album Name:</label>
+            <input
+              type="text"
+              id="album-name"
+              name="albumName"
+              placeholder="Enter your album name"
+              required
+            />
+          </div>
+
+          <div class="" style="margin-top: 4vh;">
+            <p style="margin-top: 2vh;">Upload Image</p>
+            <label for="album-image" class="upload-album">
+              <i class="fa-solid fa-upload"></i>
+              <p>Upload</p>
+            </label>
+            <input
+              type="file"
+              id="album-image"
+              name="albumImage"
+              placeholder="Enter your album name"
+              required
+            />
+          </div>
+
+          <div class="">
+            <label for="album-description">Album Description:</label>
+            <textarea
+              id="album-description"
+              name="albumDescription"
+              placeholder="Enter your album description"
+              required
+            ></textarea>
+          </div>
+
+          <div class="btn-container">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  try {
+    let album_Image = document.getElementById("album-image").files[0];
+    let album_Name = document.getElementById("album-name").value;
+    let album_Description = document.getElementById("album-description").value;
+    //  console.log(album_Image.files)
+    document
+      .querySelector("form")
+      .addEventListener("submit", async function (event) {
+        event.preventDefault();
+        alert("Album Created Successfully");
+
+        let create_Album = await axios.post("/admin/create/albums", {
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+          album_Name,
+          album_Description,
+          album_Image,
+        });
+
+        console.log(create_Album);
+
+        console.log(create_Album.data);
+
+        if (!create_Album.data) {
+        } else {
+          console.log(create_Album.data);
+        }
+      });
+  } catch (error) {
+
+
+  }
+</script>
+
+<style>
+  footer {
+    display: none;
+  }
+</style>
+
+<%- include('../Include/Footer.ejs') %>
