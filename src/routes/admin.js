@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import multerUtils from '../utils/multerUtils.js';
+import upload from '../utils/multerUtils.js';
 
 import { delete_FormData, get_FormData , view_FormData}  from '../controllers/contactForm.controller.js'; // c stand Form Contact
 
@@ -19,15 +19,20 @@ router.get('/contact/Inbox', (req, res) => {
 
 
 router.get('/albums', (req, res) => {
-  res.render('Admin/albums');
+  res.render('Admin/AlbumCreate');
 });
 
-http://localhost:3000/admin/albums
 
 
-router.post('/create/albums', multerUtils.single('album-image') , (req, res) => {
+router.post('/create/albums',  upload.single('album_Image'), (req, res) => {
+  try{
+
   let {albumDescription ,  albumName} = req.body;
   let {albumImage} = req.file;
+  console.log(req.file); // Uploaded file information
+  console.log(req.body); // Uploaded file information
+
+  console.log(albumImage)
 
   res.json({
     albumDescription,
@@ -35,11 +40,16 @@ router.post('/create/albums', multerUtils.single('album-image') , (req, res) => 
     albumName,
   })
 
-  console.table({
-    albumDescription,
-    albumImage,
-    albumName,
-  })
+  // console.table({
+  //   albumDescription,
+  //   albumImage,
+  //   albumName,
+  // })
+
+  }catch(error){
+    res.status(500).send({message: error.message})
+    console.log(error.message)
+  }
 
 
 });

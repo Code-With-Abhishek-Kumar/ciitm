@@ -113,7 +113,7 @@
     </div>
   </form>
 
-  <script >
+  <script>
     try {
       // Select Form
       let contactForm = document.querySelector(".contact-form");
@@ -122,13 +122,14 @@
       contactForm.addEventListener("submit", async function (elem) {
         elem.preventDefault();
 
-        // Taking the form value from the User
-        let name = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let country = document.getElementById("country").value;
-        let number = document.getElementById("number").value;
-        let message = document.getElementById("message").value;
-console.log(country)
+        // c ---> Contact
+
+        let cName = document.getElementById("name").value;
+        let cEmail = document.getElementById("email").value;
+        let cCountry = document.getElementById("country").value;
+        let cNumber = document.getElementById("number").value;
+        let cMessage = document.getElementById("message").value;
+        console.log(country);
 
         // Validate Form When Any filed are blank
         if (!name || !email || !country || !number || !message) {
@@ -143,11 +144,11 @@ console.log(country)
           // Save Form Data in Data Base
           // Send post Request from axios
           response = await axios.post("/contact/form/submit", {
-            name,
-            email,
-            country,
-            number,
-            message,
+            cName,
+            cEmail,
+            cCountry,
+            cNumber,
+            cMessage,
           });
 
           swal({

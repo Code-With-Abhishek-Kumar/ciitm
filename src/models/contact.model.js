@@ -1,20 +1,23 @@
 import { model, Schema  , connect} from "mongoose";
 
+// c ------> Contact
+
+
 let ContactSchema = new Schema({
- name:{
+ cName:{
     type : String,
     required : true,
     lowercase : true,
  },
 
- email:{
+ cEmail:{
     type : String,
     required : true,
     lowercase : true,
 
  },
 
- number:{
+ cNumber:{
     type : Number,
     required : true,
     
@@ -22,7 +25,7 @@ let ContactSchema = new Schema({
  },
 
 
- message:{
+ cMessage:{
     type : String,
     required : true,
     

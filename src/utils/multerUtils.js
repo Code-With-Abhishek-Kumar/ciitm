@@ -1,15 +1,23 @@
 import multer from "multer";
 import path from "path";
+import crypto from 'node:crypto'
+
+
+
 
 console.log(path.dirname);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/uploads");
+    cb(null, "/home/codewa/Desktop/myapp/uploads");
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix);
+    crypto.randomBytes(12 , function(error, buffer){
+      console.log(file.filename)
+      const uniqueSuffix = buffer.toString('hex') + path.extname(file.originalname);
+      cb(null, uniqueSuffix);
+   })
+  
   },
 });
 

@@ -17,8 +17,6 @@ const app = express();
 
 
 
-
-
 // db_connect
 
 db_connect()
