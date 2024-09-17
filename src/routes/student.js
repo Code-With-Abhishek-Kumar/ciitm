@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import {StudentPersonal_Detail , StudentDocument_Upload , StudentFee_Paid} from '../controllers/StudentAdmission.controller.js'
+import {Handle_newStudent_Record , Handle_StudentDocument_Upload, Handle_StudentFee_Paid} from '../controllers/StudentAdmission.controller.js'
 
 // Define your routes here
 router.get('/', (req, res) => {
@@ -9,12 +9,26 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/Personal', StudentPersonal_Detail);
+router.post('/admission/Personal',Handle_newStudent_Record);
+
+
+router.get('/register', (req, res) => {
+  res.send('Student upload');
+});
+
 
 
 
 router.get('/upload', (req, res) => {
   res.send('Student upload');
+});
+
+
+router.post('/signUp', (req, res) => {
+ 
+
+
+  
 });
 
 

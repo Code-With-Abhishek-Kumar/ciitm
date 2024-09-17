@@ -1,43 +1,44 @@
 import { Schema , model } from "mongoose";
 
+// s -------> Student
+
 const studentPersonalSchema = new Schema({
-    name: {
+
+    sAuthentication_Id: {
+        type: Schema.ObjectId,
+        ref: 'StudentAuthentication'
+    },
+
+    sName: {
         type: String,
         required: true,
         lowercase: true,
         trim: true,
     },
 
-    email: {
-        type: String,
-        required: true,
-        lowercase: true,
-        unique: true,
-        trim: true,
-    },
 
-    mobileNumber: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
-
-    parentNumber: {
+    sMobileNumber: {
         type: String,
         required: true,
         unique: true,
         trim: true,
     },
 
-    fatherName: {
+    sParentNumber: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+    },
+
+    sFatherName: {
         type: String,
         required: true,
         lowercase: true,
         trim: true,
     },
 
-    motherName: {
+    sMotherName: {
         type: String,
         required: true,
         lowercase: true,
@@ -45,14 +46,14 @@ const studentPersonalSchema = new Schema({
     },
 
 
-    uniqueId:{
+    sUniqueId:{
         type:String,
         unique: true,
         required: true,
         trim: true,
     },
 
-    tenthDivision: {
+    sTenthDivision: {
         type: String,
         required: true,
 
@@ -60,15 +61,14 @@ const studentPersonalSchema = new Schema({
         trim: true,
     },
 
-    tenthBoard: {
+    sTenthBoard: {
         type: String,
         required: true,
         lowercase: true,
-
         trim: true,
     },
 
-    twelveBoard: {
+    sTwelveBoard: {
         type: String,
         required: true,
   
@@ -76,7 +76,7 @@ const studentPersonalSchema = new Schema({
         trim: true,
     },
 
-    twelveDivision: {
+    sTwelveDivision: {
         type: String,
         required: true,
         lowercase: true,
@@ -84,7 +84,7 @@ const studentPersonalSchema = new Schema({
         trim: true,
     },
 
-    course:{
+    sCourse:{
         type: String,
         require: true,
         lowercase: true,
@@ -92,24 +92,24 @@ const studentPersonalSchema = new Schema({
   // Personal Fee detail
   
 
-    amountPaid: {
+    sAmountPaid: {
         type: Number,
         required: true,
         default: 0
     },
 
-    discount:{
+    sDiscount:{
         type: Number,
         default: 0,
     
     },
 
-    totalFee: {
+    sTotalFee: {
         type: Number,
         required: true,
     },
    
-    dueFee: {
+    sDueFee: {
         type: Number,
         required: true,
         default: function () {
@@ -122,12 +122,8 @@ const studentPersonalSchema = new Schema({
 });
 
 
-studentPersonalSchema.index({ email: 1 });
-studentPersonalSchema.index({ mobileNumber: 1 });
-studentPersonalSchema.index({ parentNumber: 1 });
 
 
-// Export the schema
 
 
 export  default model('studentPersonal', studentPersonalSchema);

@@ -1,16 +1,11 @@
 import mongoose from "mongoose";
 import crypto from "node:crypto";
 import otpGenerator from "otp-generation";
-// import contactSchema from '../models/contact.model.js';
 import StudentSchema from "../models/student_Personal.model.js";
 
-
-export const StudentPersonal_Detail = async (req, res) => {
+export const Handle_newStudent_Record = async (req, res) => {
   try {
-    /* -------------------------------------------------------------------------- */
-    /*                     Extract Student Information from Request Body           */
-    /* -------------------------------------------------------------------------- */
-
+    // Extract student information from the request body
     const {
       name,
       email,
@@ -28,84 +23,78 @@ export const StudentPersonal_Detail = async (req, res) => {
       totalFee,
     } = req.body;
 
-    /* -------------------------------------------------------------------------- */
-    /*                     Handle Error if any Field are blank                    */
-    /* -------------------------------------------------------------------------- */
+    let handleRequiredField = () => {
+      if (
+        !name ||
+        !email ||
+        !mobileNumber ||
+        !parentNumber ||
+        !fatherName ||
+        !motherName ||
+        !tenthDivision ||
+        !tenthBoard ||
+        !twelveBoard ||
+        !twelveDivision ||
+        !course ||
+        !amountPaid ||
+        !discount ||
+        !totalFee
+      ) {
+        return res.status(400).json({
+          message: "All fields are required",
+          error: true,
+        });
+      }
+    };
 
-    if (
-      !name ||
-      !email ||
-      !mobileNumber ||
-      !parentNumber ||
-      !fatherName ||
-      !motherName ||
-      !tenthDivision ||
-      !tenthBoard ||
-      !twelveBoard ||
-      !twelveDivision ||
-      !course ||
-      !amountPaid ||
-      !discount ||
-      !totalFee
-    ) {
-      throw new Error("All Field Are Required "); // ! Handle New Error
-    }
+    let Create_newStudent = async () => {
+      const GenerateUnique_number = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+        specialChars: false,
+      });
+      console.log("Generated OTP:", otp);
 
-    /* -------------------------------------------------------------------------- */
-    /*                              generate  Otp                                           */
-    /* -------------------------------------------------------------------------- */
+      const uniqueId = `CIITM/${course}/${GenerateUnique_number}`;
+      console.log("Generated Unique ID:", uniqueId);
 
-    let otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      specialChars: false,
-    });
+      const newStudent = await StudentSchema.create({
+        sName: name,
+        sMobileNumber: mobileNumber,
+        sParentNumber: parentNumber,
+        sFatherName: fatherName,
+        sMotherName: motherName,
+        sUniqueId: uniqueId,
+        sTenthDivision: tenthDivision,
+        sTenthBoard: tenthBoard,
+        sTwelveBoard: twelveBoard,
+        sTwelveDivision: twelveDivision,
+        sCourse: course,
+        sAmountPaid: amountPaid,
+        sDiscount: discount,
+        sTotalFee: totalFee,
+      });
 
-    console.log(otp);
+      if (newStudent) {
+        res.status(201).json(newStudent);
+      } else {
+        res.status(500).json({
+          message: "Failed to create student record",
+          error: true,
+        });
+      }
+    };
 
-    /* -------------------------------------------------------------------------- */
-    /*                         Create a Unique Id for Each Student                                          */
-    /* -------------------------------------------------------------------------- */
-
-    let uniqueId = `CIITM/${course}/${otp}`;
-    console.log(uniqueId);
-
-    /* -------------------------------------------------------------------------- */
-    /*                         Create a new student record                                         */
-    /* -------------------------------------------------------------------------- */
-
-    const newStudent = await StudentSchema.create({
-      name,
-      email,
-      mobileNumber,
-      parentNumber,
-      fatherName,
-      uniqueId,
-      motherName,
-      tenthDivision,
-      tenthBoard,
-      twelveBoard,
-      twelveDivision,
-      course,
-      amountPaid,
-      discount,
-      totalFee,
-    });
-
-
-    if(newStudent){
-        res.json(newStudent)
-    }
-
-
+    handleRequiredField();
+    Create_newStudent();
   } catch (error) {
-    console.error(error.message);
+    console.error("Error:", error.message);
     res.status(500).json({
-        message: error.message,
-        error: true,
+      message: error.message,
+      error: true,
     });
   }
 };
 
-export const StudentDocument_Upload = () => {};
+export const Handle_StudentDocument_Upload = () => {};
 
-export const StudentFee_Paid = () => {};
+export const Handle_StudentFee_Paid = () => {};
