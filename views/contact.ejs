@@ -28,6 +28,15 @@
   }
 </style>
 
+<!-- ----------------------------------------------------------------------- -->
+<!--                              contact form                               -->
+<!-- ----------------------------------------------------------------------- -->
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                             in Input name  c stand for contact          -->
+<!-- ----------------------------------------------------------------------- -->
+
+
 <div class="contact-page1">
   <form class="contact-form">
     <div class="contact-form-left"></div>
@@ -40,7 +49,7 @@
         <label for="name">Name</label>
         <input
           type="text"
-          name="name"
+          name="cName"
           placeholder="Enter Your Name"
           id="name"
           inputmode="latin"
@@ -51,7 +60,7 @@
         <label for="email">Email</label>
         <input
           type="email"
-          name="email"
+          name="cEmail"
           placeholder="Enter Your Email"
           id="email"
           inputmode="email"
@@ -64,7 +73,7 @@
         <label for="number">Mobile Number</label>
         <select
           id="country"
-          name="country"
+          name="cCountry"
           style="
             width: 28%;
             font-size: 0.8rem;
@@ -99,7 +108,7 @@
       <div class="Message flex flex-col">
         <label for="message" style="justify-content: start;">Message</label>
         <textarea
-          name="message"
+          name="cMessage"
           id="message"
           placeholder="Enter Your Message"
           style="width: 95%; height: 100px; word-wrap: break-word;"
@@ -132,7 +141,7 @@
         console.log(country);
 
         // Validate Form When Any filed are blank
-        if (!name || !email || !country || !number || !message) {
+        if (!cName || !cEmail || !cCountry || !cNumber || !cMessage) {
           swal({
             title: "🚨 Fields are Empty!",
             text:
