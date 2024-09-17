@@ -13,7 +13,7 @@
 
 <!-- Include Header -->
 
-<%- include('../Include/Header.ejs' , title="Create Album") %>
+<%- include('../Include/Header.ejs', { title: "Create Album" }) %>
 
 <!-- Main content area -->
 
@@ -36,18 +36,17 @@
       <!-- Albums Items Container -->
       <div id="albums-items-div">
         <form method="post">
-          <div class>
+          <div>
             <label for="album-name">Album Name:</label>
             <input
               type="text"
               id="album-name"
               name="albumName"
               placeholder="Enter your album name"
-              required
-            />
+              required />
           </div>
 
-          <div class style="margin-top: 4vh;">
+          <div style="margin-top: 4vh;">
             <p style="margin-top: 2vh;">Upload Image</p>
             <label for="album-image" class="upload-album">
               <i class="fa-solid fa-upload"></i>
@@ -55,21 +54,19 @@
             </label>
             <input
               type="file"
+           
               id="album-image"
               name="albumImage"
-              placeholder="Enter your album name"
-              required
-            />
+              required />
           </div>
 
-          <div class>
+          <div>
             <label for="album-description">Album Description:</label>
             <textarea
               id="album-description"
               name="albumDescription"
               placeholder="Enter your album description"
-              required
-            ></textarea>
+              required></textarea>
           </div>
 
           <div class="btn-container">
@@ -82,42 +79,69 @@
 </main>
 
 <script>
-  try {
-    let album_Name = document.getElementById("album-name").value;
-    let album_Description = document.getElementById("album-description").value;
-    //  console.log(album_Image.files)
-    document
-      .querySelector("form")
-      .addEventListener("submit", async function (event) {
-        event.preventDefault();
-        let album_Image = document.getElementById("album-image").files[0];
-        alert("Album Created Successfully");
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("form").addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-        console.log(album_Image);
-        const formData = new FormData();
-        formData.append("album_Image", album_Image); // Append the file
-        formData.append("album_Name", album_Name); // Append other fields
-        formData.append("album_Description", album_Description);
+      let album_Name = document.getElementById("album-name").value;
+      let album_Description = document.getElementById("album-description").value;
+      let album_Image = document.getElementById("album-image").files[0];
 
-        let create_Album = await axios.post("/admin/create/albums", formData, {
-          header: {
+      if (!album_Image) {
+        swal({
+          title: "Error!",
+          text: "Please upload an image.",
+          icon: "error",
+          confirmButtonText: "Got it!",
+          customClass: {
+            title: "swal-title",
+            text: "swal-text",
+          },
+        });
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("albumName", album_Name);
+      formData.append("albumDescription", album_Description);
+      formData.append("albumImage", album_Image);
+
+      console.log(formData)
+      try {
+        const create_Album = await axios.post("/admin/create/albums", formData, {
+          headers: {
             "Content-Type": "multipart/form-data",
           },
-
-          album_Name,
-          album_Description,
         });
 
-        console.log(create_Album);
-
-        console.log(create_Album.data);
-
-        if (!create_Album.data) {
+        if (create_Album.data) {
+          swal({
+            title: "🎉 Congratulations!",
+            text: "Album created successfully!",
+            icon: "success",
+            confirmButtonText: "Got it!",
+            customClass: {
+              title: "swal-title",
+              text: "swal-text",
+            },
+          });
         } else {
-          console.log(create_Album.data);
+          throw new Error('Failed to create album.');
         }
-      });
-  } catch (error) {}
+      } catch (error) {
+        swal({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Got it!",
+          customClass: {
+            title: "swal-title",
+            text: "swal-text",
+          },
+        });
+      }
+    });
+  });
 </script>
 
 <style>
