@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import upload from '../utils/multerUtils.js';
+import {handleAlbum} from '../controllers/album.controller.js'
 
 import { delete_FormData, get_FormData , view_FormData}  from '../controllers/contactForm.controller.js'; // c stand Form Contact
 
@@ -24,35 +25,7 @@ router.get('/albums', (req, res) => {
 
 
 
-router.post('/create/albums',  upload.single('album_Image'), (req, res) => {
-  try{
-
-  let {albumDescription ,  albumName} = req.body;
-  let {albumImage} = req.file;
-  console.log(req.file); // Uploaded file information
-  console.log(req.body); // Uploaded file information
-
-  console.log(albumImage)
-
-  res.json({
-    albumDescription,
-    albumImage,
-    albumName,
-  })
-
-  // console.table({
-  //   albumDescription,
-  //   albumImage,
-  //   albumName,
-  // })
-
-  }catch(error){
-    res.status(500).send({message: error.message})
-    console.log(error.message)
-  }
-
-
-});
+router.post('/create/albums',  upload.single('albumImage'),  handleAlbum);
 
 
 import contactSchema from '../models/contact.model.js'
