@@ -1,10 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import upload from '../utils/multerUtils.js';
-import {handleAlbum} from '../controllers/album.controller.js'
-
 import { delete_FormData, get_FormData , view_FormData}  from '../controllers/contactForm.controller.js'; // c stand Form Contact
-import { createAlbum}  from '../controllers/album.controller.js'; 
+import { createAlbum , getAlbum}  from '../controllers/album.controller.js'; 
 // Define your routes here
 router.get('/', (req, res) => {
   // res.send('admin Hero Page');
@@ -25,11 +23,7 @@ router.get('/albums', (req, res) => {
 
 
 
-<<<<<<< HEAD
 router.post('/create/albums',  upload.single('albumImage'), createAlbum);
-=======
-router.post('/create/albums',  upload.single('albumImage'),  handleAlbum);
->>>>>>> feature/contact
 
 
 import contactSchema from '../models/contact.model.js'
