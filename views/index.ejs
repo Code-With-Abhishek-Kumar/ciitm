@@ -144,59 +144,53 @@
     Events & Activity
   </h1>
 
-  <div class="EventCard-Container">
-    
+ 
+  <div class="EventCard-Container "></div>
+   
+
   </div>
 
-
   
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    async function Fetch_Album() {
-      await axios
-        .get("http://localhost:3000/albums")
-        .then((result) => {
-          // document.querySelector(".EventCard-Container") = ""
-          console.log(result.data)
-         let EventCard =  document.querySelector(".EventCard-Container");
-          result.data.forEach(Card => {
-        
-            EventCard.innerHTML += `
-         
 
-      <div class="Event-card">
-        <img class="card-image" src="/upload/${Card.aImage}" alt="">
-        <div class="card-heading-div">
-          <h2 class="card-Heading">${Card.aName}</h2>
-        </div>
-      </div>
-  
-    
-    `;
+ <script>
+  async function Fetch_Album() {
+    try {
+      const result = await axios.get("http://localhost:3000/albums");
+      console.log(result.data);
+
+      let EventCard = document.querySelector(".EventCard-Container");
+      EventCard.innerHTML = ""; // Clear the container before adding new content
+
+      result.data.forEach(Card => {
+        EventCard.innerHTML += `
+           <swiper-slide>
+            <div class="swiper-slide Event-card">
+            <img class="card-image" src="/upload/${Card.aImage}" alt="">
+            <div class="card-heading-div">
+              <h2 class="card-Heading">${Card.aName}</h2>
+            </div>
+          </div>
             
-          });
+            </swiper-slide>
 
-                  
-    var swiper = new Swiper(".EventCard-Container", {
-      slidesPerView: 3,
-      spaceBetween: 30,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
-     
 
-          // console.log(result.data);
+          
+        `;
+      });
 
- 
-
-        })
-        .catch((err) => {});
+   
+      
+    } catch (err) {
+      console.error(err); // Log errors for debugging
     }
+  }
 
-    Fetch_Album()
-  </script>
+  Fetch_Album();
+</script>
+
+
+
+
 </section>
 
 <%- include('./Include/Footer.ejs') %>
