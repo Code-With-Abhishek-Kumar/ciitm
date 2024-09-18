@@ -7,7 +7,7 @@ let ContactSchema = new Schema({
  cName:{
     type : String,
     required : true,
-    lowercase : true,
+    capitalize : true,
  },
 
  cEmail:{
@@ -28,6 +28,8 @@ let ContactSchema = new Schema({
  cMessage:{
     type : String,
     required : true,
+    capitalize : true,
+  
     
 
  }
