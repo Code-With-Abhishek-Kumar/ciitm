@@ -86,7 +86,7 @@
       let album_Name = document.getElementById("album-name").value;
       let album_Description = document.getElementById("album-description").value;
       let album_Image = document.getElementById("album-image").files[0];
-
+console.log(album_Image)
       if (!album_Image) {
         swal({
           title: "Error!",
@@ -129,6 +129,7 @@
           throw new Error('Failed to create album.');
         }
       } catch (error) {
+        console.log(error)
         swal({
           title: "Error!",
           text: error.message,
