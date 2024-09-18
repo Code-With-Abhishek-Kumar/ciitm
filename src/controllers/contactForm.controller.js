@@ -43,6 +43,7 @@ export const get_FormData = async (req, res) => {
     try {
         // Fetch all contact form entries from the database, sorted by creation date
         const contactData = await contactSchema.find().sort({ createdAt: -1 });
+     
 
         if (contactData.length === 0) {
             //! Handle Error if No Contact Form Data Found

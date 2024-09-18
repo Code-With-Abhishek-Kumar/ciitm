@@ -4,6 +4,7 @@ var router = express.Router();
 
 
 import { Handle_ContactForm }  from '../controllers/contactForm.controller.js'; // c stand Form Contact
+import { getAlbum }  from '../controllers/album.controller.js'; // c stand Form Contact
 
 /* GET Hero page. */
 router.get('/', function(req, res, next) {
@@ -17,7 +18,7 @@ router.get('/about', function(req, res, next) {
 
 
 router.get('/contact', function(req, res, next) {
-  res.render('contact', { title: 'Express' });
+  res.render('contact', { title: 'Contact me Boss' });
 });
 
 
@@ -28,6 +29,8 @@ router.get('/gallery', function(req, res, next) {
 
 
 router.post('/contact/form/submit',  Handle_ContactForm);
+
+router.get('/albums',  getAlbum);
 
 
 
