@@ -12,13 +12,12 @@ const AlbumSchema = new Schema({
         trim: true,
     },
 
-    aImage: [
-        {
+    aImage:{
             type: String,
             required: true,
-            trim: true,
+           
         }
-    ],
+    ,
 
     aDescription: {
         type: String,

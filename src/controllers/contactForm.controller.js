@@ -5,22 +5,22 @@ import contactSchema from '../models/contact.model.js';
 export const Handle_ContactForm = async (req, res) => {
     try {
         // Extract data from the request body
-        const { name, email, number, message, country } = req.body;
+        const { cName, cEmail, cNumber, cMessage, cCountry } = req.body;
 
         // Check if all required fields are present
-        if (!name || !email || !message || !number || !country) {
-            const error = new Error('⚠️ Name, email, country, number, and message are required fields. Please fill them out. ✍️');
+        if (!cName || !cEmail || !cMessage || !cNumber || !cCountry) {
+            const error = new Error('⚠️ Name, Email, country, Number, and message are required fields. Please fill them out. ✍️');
             error.status = 400;
             throw error;
         }
 
         // Create a new contact form entry in the database
         const createdForm = await contactSchema.create({
-            name,
-            email,
-            country,
-            number,
-            message,
+            cName,
+            cEmail,
+            cCountry,
+            cNumber,
+            cMessage,
         });
 
         // Send a success response
@@ -43,6 +43,7 @@ export const get_FormData = async (req, res) => {
     try {
         // Fetch all contact form entries from the database, sorted by creation date
         const contactData = await contactSchema.find().sort({ createdAt: -1 });
+     
 
         if (contactData.length === 0) {
             //! Handle Error if No Contact Form Data Found
