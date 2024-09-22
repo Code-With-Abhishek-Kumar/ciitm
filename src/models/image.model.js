@@ -1,10 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const ImageSchema = new Schema(
   {
     albumID: {
       type: Schema.Types.ObjectId,
-      ref: "Album",
+      ref: 'Album',
     },
 
     url: {
@@ -17,7 +17,7 @@ const ImageSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-export default model("Image", ImageSchema);
+export default model('Image', ImageSchema);

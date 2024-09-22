@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 // Define the schema for student fee transactions
@@ -6,7 +6,7 @@ const feeSchema = new Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student", // Reference to a Student model (assuming you have one)
+      ref: 'Student', // Reference to a Student model (assuming you have one)
       required: true,
     },
     amount: {
@@ -28,10 +28,10 @@ const feeSchema = new Schema(
       trim: true,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 // Create the model using the schema
-const Fee = mongoose.model("Fee", feeSchema);
+const Fee = mongoose.model('Fee', feeSchema);
 
 export default Fee;

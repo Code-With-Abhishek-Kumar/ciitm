@@ -1,9 +1,9 @@
-var typed = new Typed("#typed", {
+var typed = new Typed('#typed', {
   strings: [
-    "<b>BCA Program 💻</b> ",
-    "<b>MCA Program 🖥️</b> ",
-    "<b>MBA Program 🎓</b> ",
-    "<b>BBA Program 📈</b> ",
+    '<b>BCA Program 💻</b> ',
+    '<b>MCA Program 🖥️</b> ',
+    '<b>MBA Program 🎓</b> ',
+    '<b>BBA Program 📈</b> ',
   ],
   loop: true,
   typeSpeed: 30,
@@ -14,14 +14,14 @@ var typed = new Typed("#typed", {
 
 // swiper js
 
-var swiper = new Swiper(".mySwiper", {
+var swiper = new Swiper('.mySwiper', {
   cssMode: true,
   navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
   },
   pagination: {
-    el: ".swiper-pagination",
+    el: '.swiper-pagination',
     clickable: true, // Makes pagination bullets clickable
   },
   mousewheel: true,
@@ -31,5 +31,5 @@ var swiper = new Swiper(".mySwiper", {
     disableOnInteraction: false, // Continue autoplay after user interactions
   },
   speed: 600, // Duration of transition (in milliseconds)
-  effect: "slide", // 'slide', 'fade', 'cube', 'coverflow', 'flip'
+  effect: 'slide', // 'slide', 'fade', 'cube', 'coverflow', 'flip'
 });

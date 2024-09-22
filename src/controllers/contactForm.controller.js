@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import contactSchema from "../models/contact.model.js";
+import mongoose from 'mongoose';
+import contactSchema from '../models/contact.model.js';
 
 // Handle Contact Form Submission
 export const Handle_ContactForm = async (req, res) => {
@@ -10,7 +10,7 @@ export const Handle_ContactForm = async (req, res) => {
     // Check if all required fields are present
     if (!cName || !cEmail || !cMessage || !cNumber || !cCountry) {
       const error = new Error(
-        "⚠️ Name, Email, country, Number, and message are required fields. Please fill them out. ✍️",
+        '⚠️ Name, Email, country, Number, and message are required fields. Please fill them out. ✍️'
       );
       error.status = 400;
       throw error;
@@ -28,7 +28,7 @@ export const Handle_ContactForm = async (req, res) => {
     // Send a success response
     res.status(200).json({
       message:
-        "We’ve received your form. Our team will review your query and get back to you as soon as possible. 😊",
+        'We’ve received your form. Our team will review your query and get back to you as soon as possible. 😊',
       data: createdForm,
     });
   } catch (error) {
@@ -49,7 +49,7 @@ export const get_FormData = async (req, res) => {
     if (contactData.length === 0) {
       //! Handle Error if No Contact Form Data Found
       res.status(404).json({
-        message: "No Contact Data Found in Database",
+        message: 'No Contact Data Found in Database',
       });
     } else {
       // Send the contact data in the response
@@ -74,13 +74,13 @@ export const delete_FormData = async (req, res) => {
 
     if (!deleteMessage) {
       res.status(404).json({
-        message: "Message Not Found 😥😥",
+        message: 'Message Not Found 😥😥',
         error: true,
       });
     } else {
       res.json({
         deleteMessage,
-        message: "Form Message deleted successfully ❌",
+        message: 'Form Message deleted successfully ❌',
       });
     }
   } catch (error) {
@@ -102,7 +102,7 @@ export const view_FormData = async (req, res) => {
     // ! Handle Error id form Data Not Found
     if (!formData) {
       res.status(404).json({
-        message: "Form Data Not Found",
+        message: 'Form Data Not Found',
         error: true,
       });
     } else {

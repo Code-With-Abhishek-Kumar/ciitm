@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "lint": "eslint .",            
-    "format": "prettier --write .", 
-    "format:check": "prettier --check ." 
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

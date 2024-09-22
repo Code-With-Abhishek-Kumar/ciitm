@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const contactSchool_Schema = new Schema({
@@ -84,7 +84,7 @@ const contactSchool_Schema = new Schema({
 });
 
 // Create the model using the schema
-const Contact = mongoose.model("Contact", contactSchool_Schema);
+const Contact = mongoose.model('Contact', contactSchool_Schema);
 
 export default Contact;
 

@@ -1,4 +1,4 @@
-import albumSchema from "../models/album.model.js";
+import albumSchema from '../models/album.model.js';
 
 // Create Album
 export const createAlbum = async (req, res) => {
@@ -8,14 +8,14 @@ export const createAlbum = async (req, res) => {
 
     // Debug the code
 
-    console.log("Album Name", albumName);
-    console.log("Album Description", albumDescription);
-    console.log("Album Image", req.file);
+    console.log('Album Name', albumName);
+    console.log('Album Description', albumDescription);
+    console.log('Album Image', req.file);
 
     console.log(filename);
     // ! Handle Error When album Data are Blanked
     if (!albumDescription || !albumName) {
-      let error = new Error("Please Fill All Fields");
+      let error = new Error('Please Fill All Fields');
       error.status = 500;
       throw error;
     } else {
@@ -26,13 +26,13 @@ export const createAlbum = async (req, res) => {
       });
 
       if (!createdAlbum) {
-        let error = new Error("Album Not Created");
+        let error = new Error('Album Not Created');
         error.status = 500;
         throw error;
       }
 
       res.status(200).json({
-        message: "Form Created 😊",
+        message: 'Form Created 😊',
         data: createdAlbum,
       });
     }
@@ -52,7 +52,7 @@ export const getAlbum = async (req, res) => {
     await res.json(getAlbum);
 
     if (!getAlbum) {
-      throw new Error("Sorry we are unable to Fetch Album Data");
+      throw new Error('Sorry we are unable to Fetch Album Data');
     }
   } catch (error) {
     res.json({

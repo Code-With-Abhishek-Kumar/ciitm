@@ -1,5 +1,5 @@
-import express from "express";
+import express from 'express';
 const app = express();
-import passportGoogle from "../passport/GoogleStrategy.js";
+import passportGoogle from '../passport/GoogleStrategy.js';
 
 app.use(passportGoogle());

@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
-import crypto from "node:crypto";
-import otpGenerator from "otp-generation";
+import mongoose from 'mongoose';
+import crypto from 'node:crypto';
+import otpGenerator from 'otp-generation';
 // import contactSchema from '../models/contact.model.js';
-import StudentSchema from "../models/student_Personal.model.js";
+import StudentSchema from '../models/student_Personal.model.js';
 
 export const StudentPersonal_Detail = async (req, res) => {
   try {
@@ -47,7 +47,7 @@ export const StudentPersonal_Detail = async (req, res) => {
       !discount ||
       !totalFee
     ) {
-      throw new Error("All Field Are Required "); // ! Handle New Error
+      throw new Error('All Field Are Required '); // ! Handle New Error
     }
 
     /* -------------------------------------------------------------------------- */

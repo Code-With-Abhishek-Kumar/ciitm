@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const studentPersonalSchema = new Schema(
   {
@@ -117,7 +117,7 @@ const studentPersonalSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 studentPersonalSchema.index({ email: 1 });
@@ -126,4 +126,4 @@ studentPersonalSchema.index({ parentNumber: 1 });
 
 // Export the schema
 
-export default model("studentPersonal", studentPersonalSchema);
+export default model('studentPersonal', studentPersonalSchema);

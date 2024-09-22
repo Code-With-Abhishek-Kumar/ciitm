@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 // Define the schema for student authentication
 
@@ -19,16 +19,16 @@ const AuthenticationSchema = new Schema(
 
     role: {
       type: String,
-      default: "student",
-      enum: ["student", "admin"],
+      default: 'student',
+      enum: ['student', 'admin'],
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 // Export the model
 const StudentAuthentication = model(
-  "StudentAuthentication",
-  studentAuthenticationSchema,
+  'StudentAuthentication',
+  studentAuthenticationSchema
 );
 export default StudentAuthentication;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 // Define the schema for student uploads
@@ -6,7 +6,7 @@ const studentUploadSchema = new Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "StudentPersonal", // Reference to the StudentPersonal model
+      ref: 'StudentPersonal', // Reference to the StudentPersonal model
       required: true,
     },
     aadharCardUrl: {
@@ -41,10 +41,10 @@ const studentUploadSchema = new Schema(
   },
   {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
-  },
+  }
 );
 
 // Create the model using the schema
-const StudentUpload = mongoose.model("StudentUpload", studentUploadSchema);
+const StudentUpload = mongoose.model('StudentUpload', studentUploadSchema);
 
 export default StudentUpload;

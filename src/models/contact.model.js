@@ -1,4 +1,4 @@
-import { model, Schema, connect } from "mongoose";
+import { model, Schema, connect } from 'mongoose';
 
 // c ------> Contact
 
@@ -27,9 +27,9 @@ let ContactSchema = new Schema(
       capitalize: true,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-let Contact = model("Contact", ContactSchema);
+let Contact = model('Contact', ContactSchema);
 
 export default Contact;

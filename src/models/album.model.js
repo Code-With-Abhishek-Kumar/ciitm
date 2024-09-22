@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 // a ----> Album
 
@@ -24,15 +24,15 @@ const AlbumSchema = new Schema(
     ImageID: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Image",
+        ref: 'Image',
       },
     ],
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 // Export the Album schema
-let Album = model("Album", AlbumSchema);
+let Album = model('Album', AlbumSchema);
 export default Album;

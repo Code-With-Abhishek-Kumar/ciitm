@@ -248,7 +248,7 @@ i {
   align-items: center;
 }
 
-#albums-items-div form input[type="text"] {
+#albums-items-div form input[type='text'] {
   width: 80%;
   font-size: 1rem;
   background-color: white;
@@ -267,7 +267,7 @@ i {
   border-radius: 25px;
 }
 
-#albums-items-div form input[type="file"] {
+#albums-items-div form input[type='file'] {
   display: none;
 }
 
