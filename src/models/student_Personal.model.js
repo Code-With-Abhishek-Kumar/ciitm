@@ -120,9 +120,6 @@ const studentPersonalSchema = new Schema(
   }
 );
 
-studentPersonalSchema.index({ email: 1 });
-studentPersonalSchema.index({ mobileNumber: 1 });
-studentPersonalSchema.index({ parentNumber: 1 });
 
 // Export the schema
 

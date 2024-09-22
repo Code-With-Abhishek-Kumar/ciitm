@@ -1,15 +1,11 @@
 import mongoose from 'mongoose';
 import crypto from 'node:crypto';
 import otpGenerator from 'otp-generation';
-// import contactSchema from '../models/contact.model.js';
 import StudentSchema from '../models/student_Personal.model.js';
 
-export const StudentPersonal_Detail = async (req, res) => {
+export const Handle_newStudent_Record = async (req, res) => {
   try {
-    /* -------------------------------------------------------------------------- */
-    /*                     Extract Student Information from Request Body           */
-    /* -------------------------------------------------------------------------- */
-
+    // Extract student information from the request body
     const {
       name,
       email,
@@ -27,51 +23,42 @@ export const StudentPersonal_Detail = async (req, res) => {
       totalFee,
     } = req.body;
 
-    /* -------------------------------------------------------------------------- */
-    /*                     Handle Error if any Field are blank                    */
-    /* -------------------------------------------------------------------------- */
+    // Validate required fields
+    const handleRequiredField = () => {
+      if (
+        !name ||
+        !email ||
+        !mobileNumber ||
+        !parentNumber ||
+        !fatherName ||
+        !motherName ||
+        !tenthDivision ||
+        !tenthBoard ||
+        !twelveBoard ||
+        !twelveDivision ||
+        !course ||
+        !amountPaid ||
+        !discount ||
+        !totalFee
+      ) {
+        throw new Error('All fields are required.');
+      }
+    };
 
-    if (
-      !name ||
-      !email ||
-      !mobileNumber ||
-      !parentNumber ||
-      !fatherName ||
-      !motherName ||
-      !tenthDivision ||
-      !tenthBoard ||
-      !twelveBoard ||
-      !twelveDivision ||
-      !course ||
-      !amountPaid ||
-      !discount ||
-      !totalFee
-    ) {
-      throw new Error('All Field Are Required '); // ! Handle New Error
-    }
+    handleRequiredField(); // Call the validation function
 
-    /* -------------------------------------------------------------------------- */
-    /*                              generate  Otp                                           */
-    /* -------------------------------------------------------------------------- */
-
-    let otp = otpGenerator.generate(6, {
+    // Generate OTP
+    const otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       specialChars: false,
     });
+    console.log('Generated OTP:', otp);
 
-    console.log(otp);
+    // Create a unique ID for the student
+    const uniqueId = `CIITM/${course}/${otp}`;
+    console.log('Unique ID:', uniqueId);
 
-    /* -------------------------------------------------------------------------- */
-    /*                         Create a Unique Id for Each Student                                          */
-    /* -------------------------------------------------------------------------- */
-
-    let uniqueId = `CIITM/${course}/${otp}`;
-    console.log(uniqueId);
-
-    /* -------------------------------------------------------------------------- */
-    /*                         Create a new student record                                         */
-    /* -------------------------------------------------------------------------- */
-
+    // Create a new student record
     const newStudent = await StudentSchema.create({
       name,
       email,
@@ -90,11 +77,10 @@ export const StudentPersonal_Detail = async (req, res) => {
       totalFee,
     });
 
-    if (newStudent) {
-      res.json(newStudent);
-    }
+    // Send response
+    res.json(newStudent);
   } catch (error) {
-    console.error(error.message);
+    console.error('Error:', error.message);
     res.status(500).json({
       message: error.message,
       error: true,
@@ -102,6 +88,10 @@ export const StudentPersonal_Detail = async (req, res) => {
   }
 };
 
-export const StudentDocument_Upload = () => {};
+export const Handle_StudentDocument_Upload = () => {
+  // Function implementation goes here
+};
 
-export const StudentFee_Paid = () => {};
+export const Handle_StudentFee_Paid = () => {
+  // Function implementation goes here
+};
