@@ -1,3 +1,17 @@
-# Ignore artifacts:
-build
-coverage
+package-lock.json
+bin/
+.env
+
+
+build/
+dist/
+
+
+src/ignore-this-file.js
+src/config.js
+
+
+**/*.test.js
+
+
+node_modules/

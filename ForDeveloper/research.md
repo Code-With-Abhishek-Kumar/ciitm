@@ -8,17 +8,17 @@ This Express.js application is designed for the Chhotanagpur Institute of Inform
 
 ### Student Panel
 
-
-
 1. **Admission Page**
+
    - **Endpoint**: `/student/admission`
    - **Purpose**: Facilitates the admission process for new students.
    - **Step to take Admission**:
-      - `Step 1:-`  Fill Personal Details
-      - `Step 2:-`  Upload Required Document
-      - `Step 3:-` Pay Some Fee to take Admission
+     - `Step 1:-` Fill Personal Details
+     - `Step 2:-` Upload Required Document
+     - `Step 3:-` Pay Some Fee to take Admission
 
 2. **Student Dashboard**
+
    - **Endpoint**: `/student/dashboard`
    - **Purpose**: Provides a personalized overview for students, including:
      - **Total Fee Due**: Displays the amount of fee pending for the student.
@@ -28,8 +28,8 @@ This Express.js application is designed for the Chhotanagpur Institute of Inform
      - **Number of Messages**: Shows the count of messages sent to the admin and their status (read/unread).
      - **Additional Information**: Any other important notifications or updates relevant to the student.
 
+   3. **Student Dashboard**
 
-    3. **Student Dashboard**
    - **Endpoint**: `/student/dashboard`
    - **Purpose**: Provides a personalized overview for students, including:
      - **Total Fee Due**: Displays the amount of fee pending for the student.
@@ -39,25 +39,23 @@ This Express.js application is designed for the Chhotanagpur Institute of Inform
      - **Number of Messages**: Shows the count of messages sent to the admin and their status (read/unread).
      - **Additional Information**: Any other important notifications or updates relevant to the student.
 
+   4. **Edit Detail**
 
-    4. **Edit Detail**
    - **Endpoint**: `/student/edit`
    - **Purpose**: Student can Edit theire Persnal detail
      - **Email**: Able to Edit Email
      - **Mobile Number**: Able to Edit Email
      - **Profile Image**: Able to Edit Profile Image
-     
-
-
-
 
 ### Admin Panel
 
 1. **Student Management**
+
    - **Endpoint**: `/admin/students`
    - **Purpose**: Allows administrators to view, manage, and update student information.
 
 2. **Contact Management**
+
    - **Endpoint**: `/admin/contacts`
    - **Purpose**: Enables administrators to view and respond to messages sent through the contact form.
 
@@ -68,10 +66,12 @@ This Express.js application is designed for the Chhotanagpur Institute of Inform
 ## Default Routes
 
 - **Hero Page**
+
   - **Endpoint**: `/`
   - **Purpose**: Displays the Hero page of the application.
 
 - **About Page**
+
   - **Endpoint**: `/about`
   - **Purpose**: Provides information about CIITM and the application.
 
@@ -82,22 +82,27 @@ This Express.js application is designed for the Chhotanagpur Institute of Inform
 ## npm Packages Used
 
 1. **Multer**
+
    - **Installation**: `npm install multer`
    - **Usage**: Handles file uploads, especially for the admission page.
 
 2. **Rayjar** (or the actual payment package used)
+
    - **Installation**: `npm install rayjar` (Replace with the correct package if different)
    - **Usage**: Manages fee payments during the admission process.
 
 3. **Nodemailer**
+
    - **Installation**: `npm install nodemailer`
    - **Usage**: Sends email notifications and confirmations.
 
 4. **jsonwebtoken (JWT)**
+
    - **Installation**: `npm install jsonwebtoken`
    - **Usage**: Manages user authentication and authorization.
 
 5. **Mongoose**
+
    - **Installation**: `npm install mongoose`
    - **Usage**: Interfaces with MongoDB to manage data.
 

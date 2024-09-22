@@ -4,7 +4,6 @@ import otpGenerator from "otp-generation";
 // import contactSchema from '../models/contact.model.js';
 import StudentSchema from "../models/student_Personal.model.js";
 
-
 export const StudentPersonal_Detail = async (req, res) => {
   try {
     /* -------------------------------------------------------------------------- */
@@ -91,17 +90,14 @@ export const StudentPersonal_Detail = async (req, res) => {
       totalFee,
     });
 
-
-    if(newStudent){
-        res.json(newStudent)
+    if (newStudent) {
+      res.json(newStudent);
     }
-
-
   } catch (error) {
     console.error(error.message);
     res.status(500).json({
-        message: error.message,
-        error: true,
+      message: error.message,
+      error: true,
     });
   }
 };

@@ -1,45 +1,35 @@
-import { model, Schema  , connect} from "mongoose";
+import { model, Schema, connect } from "mongoose";
 
 // c ------> Contact
 
+let ContactSchema = new Schema(
+  {
+    cName: {
+      type: String,
+      required: true,
+      capitalize: true,
+    },
 
-let ContactSchema = new Schema({
- cName:{
-    type : String,
-    required : true,
-    capitalize : true,
- },
+    cEmail: {
+      type: String,
+      required: true,
+      lowercase: true,
+    },
 
- cEmail:{
-    type : String,
-    required : true,
-    lowercase : true,
+    cNumber: {
+      type: Number,
+      required: true,
+    },
 
- },
+    cMessage: {
+      type: String,
+      required: true,
+      capitalize: true,
+    },
+  },
+  { timestamps: true },
+);
 
- cNumber:{
-    type : Number,
-    required : true,
-    
-
- },
-
-
- cMessage:{
-    type : String,
-    required : true,
-    capitalize : true,
-  
-    
-
- }
-
-}, {timestamps : true})
-
-
-
-
-
-let Contact = model('Contact' , ContactSchema)
+let Contact = model("Contact", ContactSchema);
 
 export default Contact;

@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-
-
-
-
-
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -112,7 +107,7 @@ nav > .nav-menu {
   height: 20%;
   align-items: center;
   justify-content: space-around;
-border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
   background-color: #28166f;
   padding: 0px 0px;
 }
@@ -143,14 +138,10 @@ nav > .nav-menu > .nav-link-container {
   height: fit-content;
 }
 
-
 .Hero-page1 h1 {
   font-size: 2.1rem;
   font-weight: 800;
 }
-
-
-
 
 .Hero-page1 {
   height: 80vh;
@@ -160,23 +151,18 @@ nav > .nav-menu > .nav-link-container {
   /* background-color: green; */
 }
 
-
-
 .Hero-page1 h2 {
   font-size: 1.7rem;
   font-weight: 800;
 }
-
 
 .Hero-page1 button {
   padding: 20px 20px;
 
   margin-top: 20px;
   border: none;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
-
-
 
 /* .Hero-page1 button {
   padding: 20px 20px;
@@ -191,8 +177,6 @@ nav > .nav-menu > .nav-link-container {
   color: rgb(149, 148, 148);
 }
 
-
-
 .Hero-page1-left {
   width: 100%;
   height: 100%;
@@ -201,9 +185,6 @@ nav > .nav-menu > .nav-link-container {
   flex-direction: column;
   justify-content: center;
 }
-
-
-
 
 #typed {
   /* font-size: 2.5rem;
@@ -222,14 +203,10 @@ nav > .nav-menu > .nav-link-container {
   flex-direction: column;
 }
 
-
-.Hero-page1-right img{
+.Hero-page1-right img {
   width: 80%;
   height: 80%;
- 
 }
-
-
 
 .about-page2 {
   height: 150vh;
@@ -266,8 +243,6 @@ nav > .nav-menu > .nav-link-container {
   object-fit: contain;
 }
 
-
-
 .about-container {
   display: flex;
   width: 100%;
@@ -297,21 +272,12 @@ nav > .nav-menu > .nav-link-container {
   margin-top: 3vh;
 }
 
-
 .about-container .about-img {
   height: 29%;
   width: 100%;
 }
 
-
-
-
-
-
 @media screen and (min-width: 700px) {
-
-
-
   .swiper-slide img {
     display: block;
     width: 50%;
@@ -320,7 +286,6 @@ nav > .nav-menu > .nav-link-container {
     border-radius: 0%;
     object-position: center;
   }
-
 
   .Hero-page1 {
     height: 107vh;
@@ -334,9 +299,6 @@ nav > .nav-menu > .nav-link-container {
     font-weight: 800;
   }
 
-
- 
-
   .Hero-page1-left {
     width: 90%;
     height: 100%;
@@ -346,35 +308,21 @@ nav > .nav-menu > .nav-link-container {
     justify-content: center;
   }
 
-
   .Hero-page1 p {
     margin-top: 25px;
     font-size: 1.2rem;
     color: rgb(149, 148, 148);
   }
-
-
 }
 
-
-
-
 @media screen and (max-width: 768px) {
-
   .Hero-page1 {
-
     display: flex;
     /* flex-direction: column-reverse; */
     width: 100vw;
     /* background-color: red; */
   }
-
-
-
- 
 }
-
-
 
 /* Styles for desktops and larger screens */
 @media screen and (min-width: 1024px) {
@@ -386,8 +334,6 @@ nav > .nav-menu > .nav-link-container {
     /* background-color: rgb(26, 187, 173); */
   }
 
-
-
   .Hero-page1-left {
     width: 50%;
     height: 100%;
@@ -396,7 +342,6 @@ nav > .nav-menu > .nav-link-container {
     flex-direction: column;
     justify-content: center;
   }
-
 
   .Hero-page1-right {
     width: 50%;
@@ -407,16 +352,10 @@ nav > .nav-menu > .nav-link-container {
     justify-content: center;
   }
 
-
-  
-  
-
-
   .Hero-page1 h1 {
     font-size: 3rem;
     font-weight: 800;
   }
-
 
   .about-container .about {
     display: flex;
@@ -425,38 +364,24 @@ nav > .nav-menu > .nav-link-container {
     flex-direction: column;
     gap: 35px;
   }
-  
 
   .about-container .about p {
     text-align: center;
     font-size: 1.2rem;
   }
 
-
   .about-container .about-img {
     height: 100%;
     width: 100%;
   }
-  
-  
-
 }
-
-
-
-
-
-
 
 /* Styles for desktops and larger screens */
 @media screen and (min-width: 1398px) {
-
-
   .Hero-page1 h1 {
     font-size: 4rem;
     font-weight: 800;
   }
-
 
   .about-container .about {
     display: flex;
@@ -465,143 +390,96 @@ nav > .nav-menu > .nav-link-container {
     flex-direction: column;
     gap: 35px;
   }
-  
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Contact Page */
 
-
-
-.contact-page1{
+.contact-page1 {
   height: 100vh;
   display: flex;
   align-items: center;
 
-justify-content: center;
+  justify-content: center;
   width: 100vw;
-
 }
 
-
-.contact-form{
+.contact-form {
   width: 50%;
   height: 90%;
   display: flex;
   position: absolute;
   top: 50%;
   color: white;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-
-
-
-.contact-form-left{
+.contact-form-left {
   width: 50%;
   height: 100%;
-  
-  background-image: url('../images/contactUs-bg.png');
+
+  background-image: url("../images/contactUs-bg.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-
-.contact-form-right{
+.contact-form-right {
   padding: 60px 25px;
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 35px;
-  background-color: #CA336B;
- 
+  background-color: #ca336b;
 }
 
-
-.contact-form-right h2{
-
- margin: 20px 0px;
+.contact-form-right h2 {
+  margin: 20px 0px;
 }
 
-
-
-
-.contact-form-right label{ 
-display: flex;
-align-items: center;
-justify-content: center;
-margin-right: 10px;
-  }
-  
-
-.contact-form-right input , textarea , select{ 
-padding: 10px 5px;
- margin: 10px 0px;
- width: 70%;
- text-transform: capitalize;
+.contact-form-right label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
 }
 
+.contact-form-right input,
+textarea,
+select {
+  padding: 10px 5px;
+  margin: 10px 0px;
+  width: 70%;
+  text-transform: capitalize;
+}
 
+.contact-form-right textarea {
+  resize: none;
+}
 
-
-
-
-.contact-form-right  textarea{ 
- resize: none;
-  }
-  
-
-
-.contact-form-right button{ 
+.contact-form-right button {
   padding: 10px 5px;
   border: none;
   color: white;
-   background-color: #28166F;
-   width: 95%;
-  }
-  
-
-
-  /* Hide the number input spinner */
-  input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+  background-color: #28166f;
+  width: 95%;
 }
 
+/* Hide the number input spinner */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
 
-input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none; /* Chrome, Safari, Edge */
-    margin: 0; /* Removes extra space */
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  margin: 0; /* Removes extra space */
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /* -------------------------------------------------------------------------- */
 
@@ -609,15 +487,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* -------------------------------------------------------------------------- */
 
-
-
-
-
 .gallery {
   display: flex;
   flex-direction: column;
   margin-top: 10vh;
-
 }
 
 .gallery-part-1 {
@@ -630,7 +503,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .gallery-part-1 h1 {
   font-weight: bolder;
   font-size: 4.5rem;
-
 
   /* padding: 1vw; */
 }
@@ -648,14 +520,13 @@ input[type="number"]::-webkit-outer-spin-button {
   background-position: center;
   height: fit-content;
   object-fit: cover;
-
 }
 
 .gallery-part-2 {
   width: 100vw;
   height: min-content;
   overflow-y: scroll;
-  overflow-x:hidden ;
+  overflow-x: hidden;
 
   background-color: rebeccapurple;
   display: flex;
@@ -695,46 +566,32 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* ..............Rseponsive part................ */
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .gallery {
-      padding: 20px;
+    padding: 20px;
   }
   .gallery-part-1 p {
-  font-size: 18px;
-  line-height: 1.2;
+    font-size: 18px;
+    line-height: 1.2;
   }
-
 }
 
-
-
-
-
-.Event-page3{
+.Event-page3 {
   height: 100vh;
   width: 100vw;
   flex-direction: column;
   gap: 20px;
   padding: 3vh 3vw;
   display: flex;
-  background: linear-gradient(to bottom , #212028 , #241F73);
+  background: linear-gradient(to bottom, #212028, #241f73);
   margin-bottom: 8vh;
 }
 
-
-
-.Event-page3 .Event-title{
+.Event-page3 .Event-title {
   margin-top: 2vh;
-
 }
 
-
-
-
-
-
-.EventCard-Container{
-
+.EventCard-Container {
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -743,13 +600,9 @@ input[type="number"]::-webkit-outer-spin-button {
   list-style: none;
   padding: 0;
   z-index: 1;
-
 }
 
-
-
-.EventCard-Container .Event-card{
-
+.EventCard-Container .Event-card {
   width: 30vw;
   height: 43vh;
   position: relative;
@@ -757,39 +610,27 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: red;
 }
 
-
-.EventCard-Container .Event-card:hover .card-heading-div{
-border: 2px solid white;
+.EventCard-Container .Event-card:hover .card-heading-div {
+  border: 2px solid white;
   bottom: 10%;
-
 }
 
-.EventCard-Container .Event-card:hover 
-.card-Heading{
-font-size: 2rem;
-  
-  }
-
-  
-
-
-.EventCard-Container .Event-card:hover img{
-
-filter: grayscale(80%);
-
+.EventCard-Container .Event-card:hover .card-Heading {
+  font-size: 2rem;
 }
 
+.EventCard-Container .Event-card:hover img {
+  filter: grayscale(80%);
+}
 
-
-.Event-card img{
+.Event-card img {
   width: 100%;
-  
+
   height: 100%;
   object-fit: cover;
 }
 
-
-.Event-card .card-heading-div{
+.Event-card .card-heading-div {
   width: 100%;
   height: 15%;
   transition: all ease-in 0.5s;
@@ -802,15 +643,11 @@ filter: grayscale(80%);
   bottom: 10%;
 }
 
-
-.Event-card .card-Heading{
+.Event-card .card-Heading {
   font-size: 1.8rem;
   font-weight: 800;
   text-align: center;
-
 }
-
-
 
 /* -------------------------------------------------------------------------- */
 
@@ -818,20 +655,16 @@ filter: grayscale(80%);
 
 /* -------------------------------------------------------------------------- */
 
-
-
-
-footer{
+footer {
   width: 100vw;
   height: 50vh;
   color: white;
   background-color: black;
 }
 
-
-.footer-connect{
+.footer-connect {
   height: 10vh;
   width: 100%;
   font-size: 2rem;
-  background-color: #28166F;
+  background-color: #28166f;
 }

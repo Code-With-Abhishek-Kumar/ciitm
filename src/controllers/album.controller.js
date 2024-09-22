@@ -48,7 +48,7 @@ export const createAlbum = async (req, res) => {
 export const getAlbum = async (req, res) => {
   try {
     let getAlbum = await albumSchema.find().sort({ createdAt: -1 });
-    console.log(getAlbum)
+    console.log(getAlbum);
     await res.json(getAlbum);
 
     if (!getAlbum) {

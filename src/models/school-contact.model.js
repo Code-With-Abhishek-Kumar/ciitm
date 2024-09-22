@@ -1,95 +1,92 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-
 const contactSchool_Schema = new Schema({
- 
   socialMedia: {
     facebook: {
       type: String,
-      trim: true
+      trim: true,
     },
     instagram: {
       type: String,
-      trim: true
+      trim: true,
     },
     linkedin: {
       type: String,
-      trim: true
+      trim: true,
     },
     twitter: {
       type: String,
-      trim: true
+      trim: true,
     },
     youtube: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   email: {
     generalInquiries: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     admissions: {
       type: String,
-      trim: true
+      trim: true,
     },
     support: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   phoneNumbers: {
     mainOffice: {
       type: String,
-      trim: true
+      trim: true,
     },
     admissionsOffice: {
       type: String,
-      trim: true
+      trim: true,
     },
     supportDesk: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   physicalAddress: {
     address: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     city: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     state: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     zipCode: {
       type: String,
       required: true,
-      trim: true
-    }
+      trim: true,
+    },
   },
   additionalPlatforms: {
     whatsapp: {
       type: String,
-      trim: true
-    }
-  }
+      trim: true,
+    },
+  },
 });
 
 // Create the model using the schema
-const Contact = mongoose.model('Contact', contactSchool_Schema);
+const Contact = mongoose.model("Contact", contactSchool_Schema);
 
 export default Contact;
-
 
 // const newContact = new Contact({
 //     officialWebsite: 'http://www.schoolwebsite.com',
