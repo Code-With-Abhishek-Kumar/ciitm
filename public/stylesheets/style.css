@@ -580,11 +580,14 @@ input[type='number']::-webkit-outer-spin-button {
   height: 100vh;
   width: 100vw;
   flex-direction: column;
+
   gap: 20px;
   padding: 3vh 3vw;
   display: flex;
   background: linear-gradient(to bottom, #212028, #241f73);
   margin-bottom: 8vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .Event-page3 .Event-title {
@@ -595,9 +598,7 @@ input[type='number']::-webkit-outer-spin-button {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  overflow: hidden;
   display: flex;
-  list-style: none;
   padding: 0;
   z-index: 1;
 }
@@ -607,6 +608,7 @@ input[type='number']::-webkit-outer-spin-button {
   height: 43vh;
   position: relative;
   margin: 0px 1vw;
+  transition: all ease-in-out 0.5s;
   background-color: red;
 }
 
