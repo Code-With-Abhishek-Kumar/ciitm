@@ -1,5 +1,7 @@
-import express from 'express';
-const app = express();
-import passportGoogle from '../passport/GoogleStrategy.js';
+// import express from 'express';
+// const app = express();
+// import passportGoogle from '../passport/GoogleStrategy.js';
 
-app.use(passportGoogle());
+// app.use(passportGoogle());
+
+// export default app;

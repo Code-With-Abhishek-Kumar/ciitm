@@ -12,16 +12,11 @@ router.get('/', (req, res) => {
   res.send('Student Hero Page');
 });
 
-
-
-router.post('/admission/Personal',Handle_newStudent_Record);
-
+router.post('/admission/Personal', Handle_newStudent_Record);
 
 router.get('/register', (req, res) => {
   res.send('Student upload');
 });
-
-
 
 router.get('/upload', (req, res) => {
   res.send('Student upload');
