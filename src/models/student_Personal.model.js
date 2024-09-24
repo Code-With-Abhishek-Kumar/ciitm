@@ -1,5 +1,10 @@
 import { Schema, model } from 'mongoose';
 
+/* -------------------------------------------------------------------------- */
+/*                           This Model Content                             */
+/*                           Personal Detail of student                     */
+/* -------------------------------------------------------------------------- */
+
 const studentPersonalSchema = new Schema(
   {
     name: {
@@ -15,6 +20,7 @@ const studentPersonalSchema = new Schema(
       lowercase: true,
       unique: true,
       trim: true,
+      match: /.+\@.+\..+/,
     },
 
     mobileNumber: {
@@ -22,6 +28,8 @@ const studentPersonalSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
+      minlength: 10,
+      maxlength: 15,
     },
 
     parentNumber: {
@@ -29,6 +37,8 @@ const studentPersonalSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
+      minlength: 10,
+      maxlength: 15,
     },
 
     fatherName: {
@@ -55,7 +65,6 @@ const studentPersonalSchema = new Schema(
     tenthDivision: {
       type: String,
       required: true,
-
       lowercase: true,
       trim: true,
     },
@@ -64,14 +73,12 @@ const studentPersonalSchema = new Schema(
       type: String,
       required: true,
       lowercase: true,
-
       trim: true,
     },
 
     twelveBoard: {
       type: String,
       required: true,
-
       lowercase: true,
       trim: true,
     },
@@ -80,39 +87,14 @@ const studentPersonalSchema = new Schema(
       type: String,
       required: true,
       lowercase: true,
-
       trim: true,
     },
 
     course: {
       type: String,
-      require: true,
+      required: true,
       lowercase: true,
-    },
-    // Personal Fee detail
-
-    amountPaid: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-
-    discount: {
-      type: Number,
-      default: 0,
-    },
-
-    totalFee: {
-      type: Number,
-      required: true,
-    },
-
-    dueFee: {
-      type: Number,
-      required: true,
-      default: function () {
-        return this.totalFee - this.amountPaid - this.discount;
-      },
+      trim: true,
     },
   },
   {
@@ -120,7 +102,5 @@ const studentPersonalSchema = new Schema(
   }
 );
 
-
 // Export the schema
-
-export default model('studentPersonal', studentPersonalSchema);
+export default model('StudentPersonal', studentPersonalSchema);

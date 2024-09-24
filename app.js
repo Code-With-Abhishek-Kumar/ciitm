@@ -8,12 +8,20 @@ import passport from 'passport';
 import db_connect from './src/middleware/db.connect.js';
 import routerMiddleWare from './src/middleware/router.middleware.js';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
 app.use(
-  session({ secret: 'your-secret', resave: false, saveUninitialized: false })
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
 );
+
+// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 

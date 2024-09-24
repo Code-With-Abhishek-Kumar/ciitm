@@ -9,6 +9,7 @@ const studentUploadSchema = new Schema(
       ref: 'StudentPersonal', // Reference to the StudentPersonal model
       required: true,
     },
+
     aadharCardUrl: {
       type: String,
       trim: true,
