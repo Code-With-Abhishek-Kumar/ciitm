@@ -2,6 +2,12 @@ import { Schema, model } from 'mongoose';
 
 const courseSchema = new Schema(
   {
+    studentId: {
+      type: Schema.Types.ObjectId,
+      ref: 'StudentAuthentication', // Reference to the StudentPersonal model
+      required: true,
+    },
+
     courseName: {
       type: String,
       required: true,

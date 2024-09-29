@@ -6,7 +6,7 @@ const studentUploadSchema = new Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'StudentPersonal', // Reference to the StudentPersonal model
+      ref: 'StudentAuthentication', // Reference to the StudentPersonal model
       required: true,
     },
 

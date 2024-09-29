@@ -1,4 +1,3 @@
-import { types } from 'joi';
 import { Schema, model } from 'mongoose';
 
 const studentAuthenticationSchema = new Schema(
@@ -8,15 +7,21 @@ const studentAuthenticationSchema = new Schema(
       required: true,
     },
 
-    photo:{
-type: String,
-trim: true,
-    },
-
     providerId: {
       type: String,
       required: true,
       unique: true,
+    },
+
+    picture: {
+      type: String,
+      trim: true,
+    },
+
+    provider_displayName: {
+      type: String,
+      required: true,
+      capitalize: true,
     },
 
     isActive: {
@@ -26,6 +31,13 @@ trim: true,
 
     lastLogin: {
       type: Date,
+    },
+
+    role: {
+      type: String,
+      required: true,
+      enum: ['student', 'teacher', 'admin'],
+      default: 'student',
     },
   },
   { timestamps: true }
