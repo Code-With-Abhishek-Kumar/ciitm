@@ -1,10 +1,16 @@
- import { Schema, model } from 'mongoose';
+import { types } from 'joi';
+import { Schema, model } from 'mongoose';
 
 const studentAuthenticationSchema = new Schema(
   {
     provider_Name: {
       type: String,
       required: true,
+    },
+
+    photo:{
+type: String,
+trim: true,
     },
 
     providerId: {
