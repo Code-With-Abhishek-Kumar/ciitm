@@ -1,58 +1,64 @@
 import express from 'express';
 import passport from 'passport';
+import dotenv from 'dotenv';
+
+// Import Passport Google Strategy
 import Passport_Google from '../passport/GoogleStrategy.js';
+
+// Load environment variables
+dotenv.config();
+
+// Import your controllers
+import { Handle_ContactForm } from '../controllers/contactForm.controller.js';
+import { getAlbum } from '../controllers/album.controller.js';
+import GoogleAuth_Controller from '../controllers/GoogleAuth.controller.js';
 
 var router = express.Router();
 
-import { Handle_ContactForm } from '../controllers/contactForm.controller.js'; // c stand Form Contact
-import { getAlbum } from '../controllers/album.controller.js'; // c stand Form Contact
+
+Passport_Google()
+
 
 router.get(
   '/auth/google',
   passport.authenticate('google', { scope: ['profile'] })
 );
 
-Passport_Google();
-
 router.get(
   '/auth/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/admin',
-    // failureMessage: "Not",
-    failureRedirect: '/auth/google/failure',
-  })
+  passport.authenticate(
+    'google',
+    { failureRedirect: '/auth/google/failure'},
+  ),
+  GoogleAuth_Controller
 );
 
-// Additional routes
-// router.get('/gallery', (req, res) => {
-//   res.send('Failed to authenticate.');
-// });
 
-// Additional routes
+
+
+
 router.get('/auth/google/failure', (req, res) => {
   res.send('Failed to authenticate.');
 });
 
-const ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-};
+
+
 
 /* GET Hero page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
+  console.log(req.user);
   res.render('index', { title: 'Express' });
 });
 
 router.get('/about', function (req, res, next) {
-  res.render('about', { title: 'Express' });
+  res.render('about', { title: 'About CIITM' });
 });
 
-router.get('/contact', function (req, res, next) {
+router.get('/contact', function (req, res) {
   res.render('contact', { title: 'Contact me Boss' });
 });
 
-router.get('/gallery', function (req, res, next) {
+router.get('/gallery', function (req, res) {
   res.render('gallery', { title: 'CIITM Gallery' });
 });
 

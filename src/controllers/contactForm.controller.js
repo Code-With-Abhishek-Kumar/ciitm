@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import contactSchema from '../models/contact.model.js';
 
 // Handle Contact Form Submission

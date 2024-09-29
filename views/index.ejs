@@ -141,16 +141,34 @@
   <!-- Event cards or announcements can be added here -->
 
   <h1 class="Event-title heading-primary text-color-white text-2xl text-center">
-    Events & Activity
+    💃 Events & Activity 🎗️
   </h1>
 
  
-  <div class="EventCard-Container "></div>
+  <div class="EventCard-Container">
+
    
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-scrollbar"></div>
+
+    </div>
 
   </div>
 
-  
+ 
+   
+
+
+
+  </div>
+
 
  <script>
   async function Fetch_Album() {
@@ -158,22 +176,23 @@
       const result = await axios.get("http://localhost:3000/albums");
       console.log(result.data);
 
-      let EventCard = document.querySelector(".EventCard-Container");
+      let EventCard = document.querySelector(".swiper-wrapper");
       EventCard.innerHTML = ""; // Clear the container before adding new content
 
       result.data.forEach(Card => {
         EventCard.innerHTML += `
-           <swiper-slide>
-            <div class="swiper-slide Event-card">
+     
+
+
+          
+        <div class="swiper-slide">
+          
             <img class="card-image" src="/upload/${Card.aImage}" alt="">
-            <div class="card-heading-div">
-              <h2 class="card-Heading">${Card.aName}</h2>
-            </div>
+           <div class="card-heading-div">
+             <h2 class="card-Heading">${Card.aName}</h2>
           </div>
-            
-            </swiper-slide>
-
-
+        
+    
           
         `;
       });
@@ -191,6 +210,75 @@
 
 
 
+
 </section>
 
 <%- include('./Include/Footer.ejs') %>
+
+
+
+   <!-- Swiper JS -->
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+   <!-- Initialize Swiper -->
+   <script>
+  
+  document.addEventListener("DOMContentLoaded", function() {
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: true,
+        freeMode: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        scrollbar: {
+            el: ".swiper-scrollbar",
+            hide: true,
+        },
+    });
+});
+
+   </script>
+
+
+
+
+<style>
+   
+  .swiper {
+    width: 100%;
+    height: 100%;
+ 
+  }
+
+
+  /* .swiper-wrapper{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+  } */
+
+  /* .swiper-slide {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

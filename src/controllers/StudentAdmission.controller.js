@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-import crypto from 'node:crypto';
 import otpGenerator from 'otp-generation';
 import StudentSchema from '../models/student_Personal.model.js';
 
