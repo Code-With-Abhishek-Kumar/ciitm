@@ -1,4 +1,4 @@
- import { Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const studentAuthenticationSchema = new Schema(
   {
@@ -13,6 +13,17 @@ const studentAuthenticationSchema = new Schema(
       unique: true,
     },
 
+    picture: {
+      type: String,
+      trim: true,
+    },
+
+    provider_displayName: {
+      type: String,
+      required: true,
+      capitalize: true,
+    },
+
     isActive: {
       type: Boolean,
       default: true,
@@ -20,6 +31,13 @@ const studentAuthenticationSchema = new Schema(
 
     lastLogin: {
       type: Date,
+    },
+
+    role: {
+      type: String,
+      required: true,
+      enum: ['student', 'teacher', 'admin'],
+      default: 'student',
     },
   },
   { timestamps: true }

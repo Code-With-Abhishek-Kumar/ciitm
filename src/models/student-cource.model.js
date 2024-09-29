@@ -1,8 +1,13 @@
 import { Schema, model } from 'mongoose';
 
-
 const courseSchema = new Schema(
   {
+    studentId: {
+      type: Schema.Types.ObjectId,
+      ref: 'StudentAuthentication', // Reference to the StudentPersonal model
+      required: true,
+    },
+
     courseName: {
       type: String,
       required: true,
@@ -24,20 +29,20 @@ const courseSchema = new Schema(
 
     duration: {
       type: String,
-      required: true, 
+      required: true,
       trim: true,
     },
 
     mode: {
       type: String,
-      enum: ['Regular', 'Distance'], 
+      enum: ['Regular', 'Distance'],
       required: true,
     },
 
     fees: {
       type: Number,
       required: true,
-      min: 0, 
+      min: 0,
     },
 
     university: {
@@ -58,7 +63,7 @@ const courseSchema = new Schema(
 
     isActive: {
       type: Boolean,
-      default: true, 
+      default: true,
     },
 
     createdAt: {
@@ -72,10 +77,9 @@ const courseSchema = new Schema(
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
-
 
 const Course = model('Course', courseSchema);
 

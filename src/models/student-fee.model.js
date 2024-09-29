@@ -5,7 +5,7 @@ const feeSchema = new Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student',
+      ref: 'StudentAuthentication', // Reference to the StudentPersonal model
       required: true,
     },
 
