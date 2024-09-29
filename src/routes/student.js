@@ -7,22 +7,24 @@ import {
   Handle_StudentFee_Paid,
 } from '../controllers/StudentAdmission.controller.js';
 
-// Define your routes here
+// MiddleWare
+import Login_Middleware from '../middleware/Login_middleware.js';
+
 router.get('/', (req, res) => {
   res.send('Student Hero Page');
 });
 
-router.post('/admission/Personal', Handle_newStudent_Record);
+router.post('/admission/Personal', Login_Middleware, Handle_newStudent_Record);
 
-router.get('/register', (req, res) => {
+router.get('/register', Login_Middleware, (req, res) => {
   res.send('Student upload');
 });
 
-router.get('/upload', (req, res) => {
+router.get('/upload', Login_Middleware, (req, res) => {
   res.send('Student upload');
 });
 
-router.get('/fee', (req, res) => {
+router.get('/fee', Login_Middleware, (req, res) => {
   res.send('Student fee Page');
 });
 
