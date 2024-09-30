@@ -4,25 +4,24 @@ import jwt from 'jsonwebtoken';
 const GoogleAuth_Controller = async (req, res) => {
   try {
     console.log(req.user);
-    
-    
+
     if (!req.user) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
 
-    const { token } = req.user; 
-    
+    const { token } = req.user;
+
     if (!token) {
       return res.status(403).json({ message: 'No token provided' });
     }
-    res.cookie('token' , token)
-    
+    res.cookie('token', token);
+
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
         return res.status(403).json({ message: 'Forbidden: Invalid token' });
       }
 
-      const id = decoded.token; 
+      const id = decoded.token;
       const User = await StudentAuthentication.findById(id);
 
       if (!User) {

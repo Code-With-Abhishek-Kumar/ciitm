@@ -8,11 +8,10 @@ const Login_Middleware = (req, res, next) => {
   try {
     const token = req.cookies.token;
 
-    console.log(token)
+    console.log(token);
     if (!token) {
       return res.redirect('/auth/google/');
     } else {
-   
       console.log(req.user);
       jwt.verify(token, process.env.JWT_SECRET, async function (err, decoded) {
         let id = decoded.token;

@@ -15,9 +15,7 @@ import GoogleAuth_Controller from '../controllers/GoogleAuth.controller.js';
 
 var router = express.Router();
 
-
-Passport_Google()
-
+Passport_Google();
 
 router.get(
   '/auth/google',
@@ -26,23 +24,13 @@ router.get(
 
 router.get(
   '/auth/google/callback',
-  passport.authenticate(
-    'google',
-    { failureRedirect: '/auth/google/failure'},
-  ),
+  passport.authenticate('google', { failureRedirect: '/auth/google/failure' }),
   GoogleAuth_Controller
 );
-
-
-
-
 
 router.get('/auth/google/failure', (req, res) => {
   res.send('Failed to authenticate.');
 });
-
-
-
 
 /* GET Hero page. */
 router.get('/', function (req, res) {
