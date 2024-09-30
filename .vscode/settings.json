@@ -1,0 +1,10 @@
+{
+"super-console-log-flash": {
+          "pattern": {
+            "javascript": "console.log(\"custom @name: \", @value);",
+            "rust": "println!(\"@name: {:?}\", @value);",
+            "python": "print(\"@name:\", @value)"
+}
+}
+     
+}
