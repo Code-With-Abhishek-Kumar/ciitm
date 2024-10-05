@@ -28,17 +28,29 @@ router.get(
   GoogleAuth_Controller
 );
 
+router.get('/api/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+// router.get('/auth/google/success', (req, res) => {
+//   req.user
+// });
+
 router.get('/auth/google/failure', (req, res) => {
-  res.send('Failed to authenticate.');
+  res.status(404).json({
+    message: 'Authentication failed',
+    error: true,
+  });
 });
 
 /* GET Hero page. */
 router.get('/', function (req, res) {
-  console.log(req.user);
   res.render('index', { title: 'Express' });
 });
 
 router.get('/about', function (req, res, next) {
+  console.log(req.user);
   res.render('about', { title: 'About CIITM' });
 });
 

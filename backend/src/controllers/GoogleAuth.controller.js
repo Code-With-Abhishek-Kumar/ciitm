@@ -1,19 +1,24 @@
 import StudentAuthentication from '../models/studentAuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const GoogleAuth_Controller = async (req, res) => {
   try {
     console.log(req.user);
+    console.log('Jwt Secret', process.env.JWT_SECRET);
+    // console.log('Jwt Secret' , process.env.JWT_SECRET)
 
     if (!req.user) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
 
-    const { token } = req.user;
+  const { token } = req.user;
 
     if (!token) {
       return res.status(403).json({ message: 'No token provided' });
     }
+
     res.cookie('token', token);
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
@@ -23,6 +28,9 @@ const GoogleAuth_Controller = async (req, res) => {
 
       const id = decoded.token;
       const User = await StudentAuthentication.findById(id);
+      console.log(User);
+
+      res.json(User);
 
       if (!User) {
         return res.status(404).json({ message: 'User not found' });
@@ -30,8 +38,10 @@ const GoogleAuth_Controller = async (req, res) => {
 
       const role = User.role;
       console.log('User Role:', role);
+      // await res.json(User)
 
-      // Role-based redirection
+      // res.redirect('/');
+      // // Role-based redirection
       if (role === 'admin') {
         return res.redirect('/admin');
       } else if (role === 'student') {

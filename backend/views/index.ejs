@@ -173,7 +173,7 @@
  <script>
   async function Fetch_Album() {
     try {
-      const result = await axios.get("http://localhost:3000/albums");
+      const result = await axios.get("/albums");
       console.log(result.data);
 
       let EventCard = document.querySelector(".swiper-wrapper");

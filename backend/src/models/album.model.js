@@ -21,7 +21,7 @@ const AlbumSchema = new Schema(
       required: true,
     },
 
-    ImageID: [
+    Images: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Image',

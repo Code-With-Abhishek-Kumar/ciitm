@@ -7,6 +7,11 @@ const ImageSchema = new Schema(
       ref: 'Album',
     },
 
+    albumName: {
+      type: String,
+      required: true,
+    },
+
     url: {
       type: String,
       required: true,
