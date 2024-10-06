@@ -1,60 +1,77 @@
 import StudentAuthentication from '../models/studentAuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
+import logger from '../middleware/loggermiddleware.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const GoogleAuth_Controller = async (req, res) => {
   try {
-    console.log(req.user);
-    console.log('Jwt Secret', process.env.JWT_SECRET);
-    // console.log('Jwt Secret' , process.env.JWT_SECRET)
+    // Log token and user information
+    const { token, user } = req.user;
+    logger.info('Jwt Secret', process.env.JWT_SECRET);
 
-    if (!req.user) {
-      return res.status(401).json({ message: 'User not authenticated' });
+    if (!user) {
+      const error = new Error('User not authenticated');
+      error.status = 401;
+      throw error;
     }
 
-  const { token } = req.user;
+    logger.info('User:', user);
 
     if (!token) {
-      return res.status(403).json({ message: 'No token provided' });
+      const error = new Error('Token is missing');
+      error.status = 403;
+      throw error;
     }
+
+    logger.info(`Fetched User token successfully: ${token}`);
 
     res.cookie('token', token);
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
-        return res.status(403).json({ message: 'Forbidden: Invalid token' });
+        const error = new Error('Forbidden: Invalid token');
+        error.status = 403;
+        throw error;
       }
 
       const id = decoded.token;
       const User = await StudentAuthentication.findById(id);
-      console.log(User);
-
-      res.json(User);
 
       if (!User) {
-        return res.status(404).json({ message: 'User not found' });
+        const error = new Error('User Not Found');
+        error.status = 404;
+        throw error; // Throwing error if user is not found
       }
 
+      logger.info({ User }, 'Fetched 1 User successfully');
       const role = User.role;
-      console.log('User Role:', role);
-      // await res.json(User)
-
-      // res.redirect('/');
-      // // Role-based redirection
-      if (role === 'admin') {
-        return res.redirect('/admin');
-      } else if (role === 'student') {
-        return res.redirect('/student');
-      } else if (role === 'teacher') {
-        return res.redirect('/admin'); // or another route for teachers
-      } else {
-        return res.redirect('/');
-      }
+      logger.info(`Fetched User Role successfully: ${role}`);
+      logger.info(`Fetched User Token successfully: ${token}`);
+      return res.redirect('/');
+      // Role-based redirection
+      // if (role === 'admin') {
+      //   return res.redirect('/admin');
+      // } else if (role === 'student') {
+      //   return res.redirect('/student');
+      // } else if (role === 'teacher') {
+      //   return res.redirect('/teacher');
+      // } else {
+      //   return res.redirect('/');
+      // }
     });
   } catch (error) {
-    console.warn(error.message);
-    // return res.status(500).json({ message: 'Internal server error' });
+    // logger.error({
+    //   message: error.message,
+    //   status: error.status || 500,
+    //   stack: error.stack,
+    // });
+
+    return res.status(error.status || 500).json({
+      message: error.message || 'Internal Server Error',
+      error: true,
+    });
   }
 };
 

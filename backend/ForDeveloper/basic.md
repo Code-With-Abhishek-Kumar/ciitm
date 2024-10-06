@@ -1,24 +1,21 @@
-## API Documentation: 
+## API Documentation:
 
 ## `HTTP Status Code Summary`
 
-| Status Code | Status                  | Description                                                            |
-|-------------|-------------------------|------------------------------------------------------------------------|
-| `200 `        | OK                      | The request was successful, and the server returned the requested data.|
-| `201`         | Created                 | The request was successful, and a new resource was created.            |
-| `204 `        | No Content              | The request was successful, but there is no content to return.         |
-| `301`         | Moved Permanently       | The resource has been permanently moved to a new URL.                 |
-| `302`         | Found                   | The resource is temporarily located at a different URL.               |
-| `304`         | Not Modified            | The resource has not been modified since the last request.            |
-| `400 `        | Bad Request             | The server could not understand the request due to invalid syntax.    |
-| `401 `        | Unauthorized            | Authentication is required, and the request has not been applied.     |
-| `403`         | Forbidden               | The server understood the request but refuses to authorize it.        |
-| `404 `        | Not Found               | The requested resource could not be found on the server.              |
-| `409  `       | Conflict                | The request could not be completed due to a conflict with the current state of the resource. |
-| `500 `        | Internal Server Error   | The server encountered an unexpected condition that prevented it from fulfilling the request. This often indicates a bug in the server-side code or an unhandled exception. |
-
-
-
+| Status Code | Status                | Description                                                                                                                                                                 |
+| ----------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `200 `      | OK                    | The request was successful, and the server returned the requested data.                                                                                                     |
+| `201`       | Created               | The request was successful, and a new resource was created.                                                                                                                 |
+| `204 `      | No Content            | The request was successful, but there is no content to return.                                                                                                              |
+| `301`       | Moved Permanently     | The resource has been permanently moved to a new URL.                                                                                                                       |
+| `302`       | Found                 | The resource is temporarily located at a different URL.                                                                                                                     |
+| `304`       | Not Modified          | The resource has not been modified since the last request.                                                                                                                  |
+| `400 `      | Bad Request           | The server could not understand the request due to invalid syntax.                                                                                                          |
+| `401 `      | Unauthorized          | Authentication is required, and the request has not been applied.                                                                                                           |
+| `403`       | Forbidden             | The server understood the request but refuses to authorize it.                                                                                                              |
+| `404 `      | Not Found             | The requested resource could not be found on the server.                                                                                                                    |
+| `409  `     | Conflict              | The request could not be completed due to a conflict with the current state of the resource.                                                                                |
+| `500 `      | Internal Server Error | The server encountered an unexpected condition that prevented it from fulfilling the request. This often indicates a bug in the server-side code or an unhandled exception. |
 
 ## HTTP Method Overview
 
@@ -29,7 +26,6 @@ The HTTP method of an endpoint defines the type of action it performs on a given
 - **PATCH**: Used for updating properties of resources.
 - **PUT**: Used for replacing resources or collections of resources.
 - **DELETE**: Used for deleting resources.
-
 
 ## Installation
 
@@ -57,8 +53,6 @@ cd project-name
 
 Run the following command to install the necessary dependencies:
 
-
-
 ```bash
 npm install
 ```
@@ -67,20 +61,15 @@ npm install
 
 Create a .env file in the root directory and add the necessary environment variables. You can use the following template:
 
-
-
 ```makefile
 PORT=3000
 DB_URI=mongodb://localhost:27017/your-db-name
 JWT_SECRET=your_jwt_secret
 ```
 
-
 ### Run the Application
 
 You can start the application using the following command
-
-
 
 ```bash
 npm start
@@ -88,11 +77,9 @@ npm start
 
 The server should now be running at `http://localhost:3000`
 
-
 ### Access the API
 
 You can now access the API at `http://localhost:3000/api`.
-
 
 ### API Overview
 
@@ -103,6 +90,7 @@ The API allows you to perform various operations, such as creating, reading, upd
 Some endpoints may require authentication. To access these protected routes, you will need to include a JSON Web Token (JWT) in your requests. Follow these steps to obtain and use the token:
 
 1. **Obtain a Token**:
+
    - Use the `/login` endpoint to authenticate a user and receive a token.
    - **Example Request**:
      ```bash
@@ -113,7 +101,7 @@ Some endpoints may require authentication. To access these protected routes, you
    - **Example Response**:
      ```json
      {
-         "token": "your_jwt_token_here"
+       "token": "your_jwt_token_here"
      }
      ```
 
@@ -152,6 +140,7 @@ You can use Postman, a popular API client, to easily interact with your API. Pos
 - **Click on "New"** in the top left corner or select **"Create a request"** from the dashboard.
 - In the **"Request name"** field, give your request a descriptive name.
 - Choose the appropriate HTTP method for your request:
+
   - **GET**: To retrieve data.
   - **POST**: To create a new resource.
   - **PATCH**: To update an existing resource.
@@ -160,8 +149,6 @@ You can use Postman, a popular API client, to easily interact with your API. Pos
 - **Enter the URL** for the endpoint you want to access. For example:
 
 http://localhost:3000/api/resources
-
-
 
 #### 3. Set Up Authentication (if required)
 
@@ -180,8 +167,9 @@ If you're creating or updating a resource (using POST or PATCH), you’ll need t
 - From the dropdown to the right, choose **"JSON"**. This sets the `Content-Type` header to `application/json`.
 
 - Enter your JSON data in the provided field. For example, to create a new resource, you might enter:
+
 ```json
 {
-    "name": "New Resource"
+  "name": "New Resource"
 }
 ```

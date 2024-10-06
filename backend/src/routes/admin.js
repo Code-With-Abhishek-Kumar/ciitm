@@ -10,7 +10,11 @@ import {
   view_FormData,
 } from '../controllers/contactForm.controller.js'; // c stand Form Contact
 import { admin_DashBoard_Controller } from '../controllers/adminDashboard.controller.js';
-import { createAlbum, getAlbum , CreateImage} from '../controllers/album.controller.js';
+import {
+  createAlbum,
+  getAlbum,
+  CreateImage,
+} from '../controllers/album.controller.js';
 
 // MiddleWare
 import Login_Middleware from '../middleware/Login_middleware.js';
@@ -26,13 +30,6 @@ router.get('/contact/Inbox', Login_Middleware, (req, res) => {
 router.get('/albums', Login_Middleware, (req, res) => {
   res.render('Admin/AlbumCreate');
 });
-
-router.post(
-  '/create/albums',
-  // Login_Middleware,
-  upload.single('albumImage'),
-  createAlbum
-);
 
 // router.get(
 //   '/create/albums',
@@ -52,7 +49,16 @@ router.delete(
   delete_FormData
 );
 
-router.post('/create/image',  CreateImage);
+router.get('/album', Login_Middleware, getAlbum);
+
+router.post(
+  '/create/albums',
+  // Login_Middleware,
+  upload.single('albumImage'),
+  createAlbum
+);
+
+router.post('/create/image', upload.single('imageFile'), CreateImage);
 
 //localhost:3000/admin/contact/Inbox/message/view/66d473108638006327ea99e0
 

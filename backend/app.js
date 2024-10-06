@@ -1,10 +1,10 @@
 import createError from 'http-errors';
 import express from 'express';
 import session from 'express-session';
+import lolcat from 'lolcatjs';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import logger from 'morgan';
 import passport from 'passport';
 import db_connect from './src/middleware/db.connect.js';
 import routerMiddleWare from './src/middleware/router.middleware.js';
@@ -13,6 +13,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+
+// Middleware to log messages with lolcat
+app.use((req, res, next) => {
+  lolcat.fromString(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(
   session({
@@ -44,7 +50,6 @@ console.log(__dirname);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(logger('dev'));
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

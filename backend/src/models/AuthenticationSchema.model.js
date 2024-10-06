@@ -27,8 +27,5 @@ const AuthenticationSchema = new Schema(
 );
 
 // Export the model
-const StudentAuthentication = model(
-  'StudentAuthentication',
-  studentAuthenticationSchema
-);
-export default StudentAuthentication;
+const Authentication = model('AuthenticationSchema', AuthenticationSchema);
+export default Authentication;

@@ -12,6 +12,8 @@ dotenv.config();
 import { Handle_ContactForm } from '../controllers/contactForm.controller.js';
 import { getAlbum } from '../controllers/album.controller.js';
 import GoogleAuth_Controller from '../controllers/GoogleAuth.controller.js';
+import { pinoHttp } from 'pino-http';
+import pino from 'pino';
 
 var router = express.Router();
 

@@ -2,21 +2,29 @@ import { Schema, model } from 'mongoose';
 
 const ImageSchema = new Schema(
   {
-    albumID: {
+    userID: {
       type: Schema.Types.ObjectId,
+      ref: 'AuthenticationSchema',
+    },
+
+    albumID: {
+      type: Schema.Types.String,
       ref: 'Album',
     },
 
     albumName: {
       type: String,
-      required: true,
+    },
+
+    imageName: {
+      type: String,
     },
 
     url: {
       type: String,
       required: true,
     },
-    description: {
+    imageDescription: {
       type: String,
     },
   },

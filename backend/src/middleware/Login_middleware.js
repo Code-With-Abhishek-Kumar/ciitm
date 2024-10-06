@@ -9,6 +9,7 @@ const Login_Middleware = (req, res, next) => {
     const token = req.cookies.token;
 
     console.log(token);
+
     if (!token) {
       return res.redirect('/auth/google/');
     } else {

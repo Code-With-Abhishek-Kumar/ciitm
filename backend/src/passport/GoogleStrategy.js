@@ -19,7 +19,7 @@ const Passport_Google = async (req, res) => {
           callbackURL:
             process.env.GOOGLE_CALLBACK_URL ||
             'http://localhost:3000/auth/google/callback',
-          passReqToCallback: false,
+          passReqToCallback: true,
         },
         async (request, accessToken, refreshToken, profile, done) => {
           //! Check if the profile is received
