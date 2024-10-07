@@ -12,6 +12,8 @@ dotenv.config();
 import { Handle_ContactForm } from '../controllers/contactForm.controller.js';
 import { getAlbum } from '../controllers/album.controller.js';
 import GoogleAuth_Controller from '../controllers/GoogleAuth.controller.js';
+import { pinoHttp } from 'pino-http';
+import pino from 'pino';
 
 var router = express.Router();
 
@@ -28,17 +30,35 @@ router.get(
   GoogleAuth_Controller
 );
 
+router.get('/api/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+
+router.get('/set-session', (req, res) => {
+  req.session.userId = '6703ca2975e3a7721808b77a'; // Example user ID
+  res.send('Session data has been set');
+});
+
+// router.get('/auth/google/success', (req, res) => {
+//   req.user
+// });
+
 router.get('/auth/google/failure', (req, res) => {
-  res.send('Failed to authenticate.');
+  res.status(404).json({
+    message: 'Authentication failed',
+    error: true,
+  });
 });
 
 /* GET Hero page. */
 router.get('/', function (req, res) {
-  console.log(req.user);
   res.render('index', { title: 'Express' });
 });
 
 router.get('/about', function (req, res, next) {
+  console.log(req.user);
   res.render('about', { title: 'About CIITM' });
 });
 

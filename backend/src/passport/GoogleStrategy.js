@@ -1,6 +1,6 @@
 // Import necessary libraries and modules
 import GoogleStrategy from 'passport-google-oauth2';
-import Authentication_Schema from '../models/studentAuthenticationSchema.model.js';
+import Authentication_Schema from '../models/AuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import dotenv from 'dotenv';
@@ -19,7 +19,7 @@ const Passport_Google = async (req, res) => {
           callbackURL:
             process.env.GOOGLE_CALLBACK_URL ||
             'http://localhost:3000/auth/google/callback',
-          passReqToCallback: false,
+          passReqToCallback: true,
         },
         async (request, accessToken, refreshToken, profile, done) => {
           //! Check if the profile is received

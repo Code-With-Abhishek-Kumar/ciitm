@@ -1,34 +1,51 @@
 import { Schema, model } from 'mongoose';
 
-// Define the schema for student authentication
-
 const AuthenticationSchema = new Schema(
   {
-    Email: {
+    provider_Name: {
       type: String,
       required: true,
-      lowercase: true,
-      trim: true,
+    },
+
+    providerId: {
+      type: String,
+      required: true,
       unique: true,
     },
-    Password: {
+
+    picture: {
+      type: String,
+      trim: true,
+    },
+
+    provider_displayName: {
       type: String,
       required: true,
-      trim: true,
+      capitalize: true,
+    },
+
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+
+    lastLogin: {
+      type: Date,
     },
 
     role: {
       type: String,
+      required: true,
+      enum: ['student', 'teacher', 'admin'],
       default: 'student',
-      enum: ['student', 'admin'],
     },
   },
   { timestamps: true }
 );
 
-// Export the model
 const StudentAuthentication = model(
   'StudentAuthentication',
-  studentAuthenticationSchema
+  AuthenticationSchema
 );
+
 export default StudentAuthentication;

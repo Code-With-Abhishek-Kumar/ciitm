@@ -9,12 +9,19 @@ const storage = multer.diskStorage({
     cb(null, 'public/upload/');
   },
   filename: function (req, file, cb) {
-    crypto.randomBytes(12, function (error, buffer) {
-      console.log(file.filename);
-      const uniqueSuffix =
-        buffer.toString('hex') + path.extname(file.originalname);
-      cb(null, uniqueSuffix);
-    });
+    try {
+      crypto.randomBytes(12, function (error, buffer) {
+        console.log(file.filename);
+        const uniqueSuffix =
+          buffer.toString('hex') + path.extname(file.originalname);
+        cb(null, uniqueSuffix);
+      });
+    } catch (error) {
+      res.status(error.status || 500).json({
+        message: error.message,
+        error: true,
+      });
+    }
   },
 });
 
