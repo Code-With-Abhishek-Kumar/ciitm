@@ -14,6 +14,7 @@ import {
   createAlbum,
   getAlbum,
   CreateImage,
+  deleteAlbum,
 } from '../controllers/album.controller.js';
 
 // MiddleWare
@@ -57,6 +58,8 @@ router.post(
   upload.single('albumImage'),
   createAlbum
 );
+
+router.delete('/delete/albums/:id', deleteAlbum);
 
 router.post('/create/image', upload.single('imageFile'), CreateImage);
 

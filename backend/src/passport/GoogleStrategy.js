@@ -1,6 +1,6 @@
 // Import necessary libraries and modules
 import GoogleStrategy from 'passport-google-oauth2';
-import Authentication_Schema from '../models/studentAuthenticationSchema.model.js';
+import Authentication_Schema from '../models/AuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import dotenv from 'dotenv';

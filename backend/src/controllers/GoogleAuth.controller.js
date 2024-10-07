@@ -1,4 +1,4 @@
-import StudentAuthentication from '../models/studentAuthenticationSchema.model.js';
+import StudentAuthentication from '../models/AuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
 import logger from '../middleware/loggermiddleware.js';
 import dotenv from 'dotenv';
@@ -18,6 +18,7 @@ const GoogleAuth_Controller = async (req, res) => {
     }
 
     logger.info('User:', user);
+    // console.log()
 
     if (!token) {
       const error = new Error('Token is missing');
@@ -26,6 +27,7 @@ const GoogleAuth_Controller = async (req, res) => {
     }
 
     logger.info(`Fetched User token successfully: ${token}`);
+    let session = (req.session.userId = user.id);
 
     res.cookie('token', token);
 
@@ -47,8 +49,9 @@ const GoogleAuth_Controller = async (req, res) => {
 
       logger.info({ User }, 'Fetched 1 User successfully');
       const role = User.role;
-      logger.info(`Fetched User Role successfully: ${role}`);
-      logger.info(`Fetched User Token successfully: ${token}`);
+      // logger.info(`Fetched User Role successfully: ${role}`);
+      // logger.info(`Fetched User Token successfully: ${token}`);
+      // logger.info(`Fetched User Session successfully: ${session}`);
       return res.redirect('/');
       // Role-based redirection
       // if (role === 'admin') {

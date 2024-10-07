@@ -174,7 +174,7 @@
   async function Fetch_Album() {
     try {
       const result = await axios.get("/albums");
-      console.log(result.data);
+      // console.log(result.data);
 
       let EventCard = document.querySelector(".swiper-wrapper");
       EventCard.innerHTML = ""; // Clear the container before adding new content

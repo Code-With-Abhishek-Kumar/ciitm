@@ -42,6 +42,7 @@ export const Handle_ContactForm = async (req, res) => {
 // Retrieve All Contact Form Data from DataBase
 export const get_FormData = async (req, res) => {
   try {
+    console.log(req.sect);
     // Fetch all contact form entries from the database, sorted by creation date
     const contactData = await contactSchema.find().sort({ createdAt: -1 });
 
