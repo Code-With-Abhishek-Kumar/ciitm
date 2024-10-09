@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Configure Passport with Google strategy
-const Passport_Google = async (req, res) => {
+const Passport_Google = async () => {
   try {
     passport.use(
       new GoogleStrategy(
@@ -24,6 +24,7 @@ const Passport_Google = async (req, res) => {
         async (request, accessToken, refreshToken, profile, done) => {
           //! Check if the profile is received
           // console.log('Google Profile', profile);
+          console.log(profile);
           if (!profile) {
             throw new Error('Failed to login');
           }

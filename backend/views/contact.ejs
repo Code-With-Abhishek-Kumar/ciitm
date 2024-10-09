@@ -124,68 +124,75 @@
 
   <script>
     try {
-      // Select Form
-      let contactForm = document.querySelector(".contact-form");
+  // Select Form
+  let contactForm = document.querySelector(".contact-form");
 
-      // Handle Form Submit
-      contactForm.addEventListener("submit", async function (elem) {
-        elem.preventDefault();
+  // Handle Form Submit
+  contactForm.addEventListener("submit", async function (elem) {
+    elem.preventDefault();
 
-        // c ---> Contact
+    // Extract form values
+    let cName = document.getElementById("name").value.trim();
+    let cEmail = document.getElementById("email").value.trim();
+    let cCountry = document.getElementById("country").value.trim();
+    let cNumber = document.getElementById("number").value.trim();
+    let cMessage = document.getElementById("message").value.trim();
 
-        let cName = document.getElementById("name").value;
-        let cEmail = document.getElementById("email").value;
-        let cCountry = document.getElementById("country").value;
-        let cNumber = document.getElementById("number").value;
-        let cMessage = document.getElementById("message").value;
-        console.log(country);
-
-        // Validate Form When Any filed are blank
-        if (!cName || !cEmail || !cCountry || !cNumber || !cMessage) {
-          swal({
-            title: "🚨 Fields are Empty!",
-            text:
-              "⚠️ Name, email, country, number, and message are required fields. Please fill them out. ✍️",
-            icon: "error",
-            button: "Close!",
-          });
-        } else {
-          // Save Form Data in Data Base
-          // Send post Request from axios
-          response = await axios.post("/contact/form/submit", {
-            cName,
-            cEmail,
-            cCountry,
-            cNumber,
-            cMessage,
-          });
-
-          swal({
-            title: "🎉 Congratulations!",
-            text: response.data.message,
-            icon: "success",
-            confirmButtonText: "Got it!",
-            customClass: {
-              title: "swal-title", // Customize title CSS class if needed
-              text: "swal-text", // Customize text CSS class if needed
-            },
-          });
-        }
+    try {
+      // Send POST request from Axios
+      let response = await axios.post("/contact/form/submit", {
+        cName,
+        cEmail,
+        cCountry,
+        cNumber,
+        cMessage,
       });
+
+      console.log(response.data);
+
+      // Display success message
+      swal({
+        title: "🎉 Congratulations!",
+        text: response.data.message,
+        icon: "success",
+        confirmButtonText: "Got it!",
+        customClass: {
+          title: "swal-title", // Customize title CSS class if needed
+          text: "swal-text", // Customize text CSS class if needed
+        },
+      });
+
     } catch (error) {
-      if (error) {
-        swal({
-          title: "Unexpected Error",
-          text: error.message,
-          icon: "error",
-          confirmButtonText: "Close",
-          customClass: {
-            title: "swal-title", // Customize title CSS class if needed
-            text: "swal-text", // Customize text CSS class if needed
-          },
-        });
-      }
+    
+      console.error("Axios error:", error);
+  
+      swal({
+        title: "Unexpected Error",
+        text: error.response ? error.response.data.message : error.message,
+        icon: "error",
+        confirmButtonText: "Close",
+        customClass: {
+          title: "swal-title", // Customize title CSS class if needed
+          text: "swal-text", // Customize text CSS class if needed
+        },
+      });
     }
+  });
+} catch (error) {
+  // Handle any unexpected errors
+  console.error("Unexpected error:", error);
+  swal({
+    title: "Unexpected Error",
+    text: error.message,
+    icon: "error",
+    confirmButtonText: "Close",
+    customClass: {
+      title: "swal-title", // Customize title CSS class if needed
+      text: "swal-text", // Customize text CSS class if needed
+    },
+  });
+}
+
   </script>
 
   <div class="wave-container"></div>

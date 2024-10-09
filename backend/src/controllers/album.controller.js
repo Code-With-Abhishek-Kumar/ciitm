@@ -1,44 +1,48 @@
+import AlbumSchemaJoi from '../validation/AlbumSchemaJoi.js';
 import albumSchema from '../models/album.model.js';
 import imageSchema from '../models/image.model.js';
-import lolcat from 'lolcatjs';
-import logger from '../middleware/loggermiddleware.js';
+import fs from 'fs';
+import logger from '../middleware/loggerMiddleware.js';
 
-// Create Album
 export const createAlbum = async (req, res) => {
   try {
     let { albumDescription, albumName } = req.body;
     let { filename } = req.file;
 
-    logger.info(`Attempting to create album: ${albumName}`);
+    let { error } = AlbumSchemaJoi.validate(req.body, filename);
+    logger.error(error.message);
+    let message = error.message;
+    logger.error(message);
 
-    // Handle Error When album Data are Blank
-    if (!albumDescription || !albumName || !filename) {
-      // logger.error('Some Field are Missing in Your Album');
-      let error = new Error('Please Fill All Fields');
-      error.status = 400; // Use 400 for bad requests
+    // ! Handle Error When album Data are Blank
+
+    if (error) {
+      let error = new Error();
+      error.message = message;
+      error.status = 400;
       throw error;
     }
 
     let createdAlbum = await albumSchema.create({
       aName: albumName,
       aDescription: albumDescription,
-      aImage: filename,
+      aImage: 'public/upload/' + filename,
     });
 
     if (!createdAlbum) {
-      logger.error('Album creation failed');
+      // logger.error('Album creation failed');
       let error = new Error('Album creation failed');
       error.status = 500;
       throw error;
     }
 
-    // logger.info('Album created successfully');
+    logger.info('Album created successfully');
     res.status(200).json({
       message: '1 Album Created 😊',
-      data: createdAlbum,
+      // data: createdAlbum,
     });
   } catch (error) {
-    logger.error(`Error creating album: ${error.message}`);
+    // logger.error(`Error creating album: ${error.message}`);
     res.status(error.status || 500).json({
       message: error.message,
       error: true,
@@ -46,13 +50,31 @@ export const createAlbum = async (req, res) => {
   }
 };
 
-// Delete Album on the basic of id
 export const deleteAlbum = async (req, res) => {
   try {
     let { id } = req.params;
+    // logger.info(`Attempting to delete album from Image Id: ${id}`);
+    let findAlbum = await albumSchema.findByIdAndDelete(id);
 
-    let findAlbum = albumSchema.findById(id);
-    console.log(findAlbum);
+    if (!findAlbum) {
+      logger.error(`Album Not Found`);
+      let error = new Error('Album Not Found');
+      error.status = 404;
+      throw error;
+    }
+
+    fs.rm(`${findAlbum.aImage}`, { recursive: true, force: true }, (err) => {
+      if (err) {
+        logger.error('Error deleting directory:', err);
+        return;
+      }
+      // logger.info('Delete Image From File');
+    });
+
+    res.status(200).json({
+      message: '1 Image Delete',
+      findAlbum,
+    });
   } catch (error) {
     logger.error(`Error creating album: ${error.message}`);
     res.status(error.status || 500).json({
@@ -62,9 +84,11 @@ export const deleteAlbum = async (req, res) => {
   }
 };
 
-// Get All Album Data In form of Json
 export const getAlbum = async (req, res) => {
   try {
+
+    // console.log(req.session.userId)
+    logger.info('Fetching albums...');
     let getAlbum = await albumSchema.find().sort({ createdAt: -1 });
 
     if (!getAlbum.length) {
@@ -90,7 +114,6 @@ export const getAlbum = async (req, res) => {
   }
 };
 
-// Create Image Inside Album
 export const CreateImage = async (req, res) => {
   try {
     // Logging request data
@@ -105,8 +128,7 @@ export const CreateImage = async (req, res) => {
     //     ref: 'AuthenticationSchema',
 
     //   },
-    // console.log("Cookies",req.cookies.userId)
-    // console.log(`Welcome User ID: ${req.session.userId}!`);
+
     //! Throw Error if Field are Blank
     if (!filename || !albumName) {
       const error = new Error('Some Field Are Blank');
@@ -142,7 +164,7 @@ export const CreateImage = async (req, res) => {
     // // Create the image record
     const createImage = await imageSchema.create({
       albumID: findAlbum._id,
-      url: '/public/upload/' + filename,
+      url: 'public/upload/' + filename,
       description: imageDescription,
     });
 
@@ -160,6 +182,43 @@ export const CreateImage = async (req, res) => {
 
     return res.status(error.status || 500).json({
       message: error.message || 'Internal Server Error',
+      error: true,
+    });
+  }
+};
+
+export const deleteImage = async (req, res) => {
+  try {
+    let { id } = req.params;
+    logger.info(`Attempting to delete image from Image Id: ${id}`);
+    let findImage = await imageSchema.findById(id);
+    // logger.info( {findImage}, `1 Image Find `);
+    // console.log('ImageUrl',findImage.url);
+
+    if (!findImage) {
+      // logger.error(`image Not Found`);
+      let error = new Error('image Not Found');
+      error.status = 404;
+      throw error;
+    }
+
+    fs.rm(
+      `public/upload/b21b9eefca3324804f2fef7d.jpg`,
+      { recursive: true, force: true },
+      (err) => {
+        if (err) {
+          logger.error('Error deleting directory:', err);
+          return;
+        }
+        res.status(200).json({
+          message: '1 Image Delete From File',
+        });
+      }
+    );
+  } catch (error) {
+    logger.error(`Error creating image: ${error.message}`);
+    res.status(error.status || 500).json({
+      message: error.message,
       error: true,
     });
   }

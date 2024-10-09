@@ -51,7 +51,7 @@ function NavBar() {
         </ol>
 
         <div className="login-btn">
-          <a href="/auth/google/">
+          <a href="http://localhost:3000/auth/google/">
             <button
               id="login_btn"
               className="px-[45px] py-[12px] border-none rounded-[35px] text-white bg-[#db2d1c] text-lg"

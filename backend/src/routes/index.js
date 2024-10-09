@@ -35,10 +35,13 @@ router.get('/api/logout', (req, res) => {
   res.redirect('/');
 });
 
-
 router.get('/set-session', (req, res) => {
   req.session.userId = '6703ca2975e3a7721808b77a'; // Example user ID
   res.send('Session data has been set');
+});
+
+router.get('/get-session', (req, res) => {
+  res.send(req.session);
 });
 
 // router.get('/auth/google/success', (req, res) => {

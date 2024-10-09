@@ -43,7 +43,7 @@
               id="album-name"
               name="albumName"
               placeholder="Enter your album name"
-              required />
+            />
           </div>
 
           <div style="margin-top: 4vh;">
@@ -86,20 +86,8 @@
       let album_Name = document.getElementById("album-name").value;
       let album_Description = document.getElementById("album-description").value;
       let album_Image = document.getElementById("album-image").files[0];
-console.log(album_Image)
-      if (!album_Image) {
-        swal({
-          title: "Error!",
-          text: "Please upload an image.",
-          icon: "error",
-          confirmButtonText: "Got it!",
-          customClass: {
-            title: "swal-title",
-            text: "swal-text",
-          },
-        });
-        return;
-      }
+        console.log(album_Image)
+
 
       const formData = new FormData();
       formData.append("albumName", album_Name);
@@ -108,31 +96,20 @@ console.log(album_Image)
 
       console.log(formData)
       try {
-        const create_Album = await axios.post("/admin/create/albums", formData, {
+        const response = await axios.post("/admin/create/albums", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
 
-        if (create_Album.data) {
-          swal({
-            title: "🎉 Congratulations!",
-            text: "Album created successfully!",
-            icon: "success",
-            confirmButtonText: "Got it!",
-            customClass: {
-              title: "swal-title",
-              text: "swal-text",
-            },
-          });
-        } else {
-          throw new Error('Failed to create album.');
-        }
+
+
+
       } catch (error) {
         console.log(error)
         swal({
           title: "Error!",
-          text: error.message,
+          text: error.message ? error.response.data.message : error.message,
           icon: "error",
           confirmButtonText: "Got it!",
           customClass: {

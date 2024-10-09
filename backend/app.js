@@ -7,7 +7,7 @@ import lolcat from 'lolcatjs';
 import path from 'path';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-
+import ErrorHandler from './src/middleware/ErrorHandler.js';
 import passport from 'passport';
 import db_connect from './src/middleware/db.connect.js';
 import routerMiddleWare from './src/middleware/router.middleware.js';
@@ -23,16 +23,17 @@ const __dirname = path.dirname(__filename);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// Session middleware
+// Session middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET, // Secret for signing the session ID
+    resave: false, // Prevents session from being saved if it wasn't modified
+    saveUninitialized: false, // Don't create sessions until something is stored
     cookie: {
-      secure: process.env.NODE_ENV === 'production', // Only use secure cookies in production
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      // httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+      maxAge: 24 * 60 * 60 * 1000, // Cookie expiration time (1 day)
     },
   })
 );
@@ -75,6 +76,10 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
+// Error Handler Middleware
+
+app.use(ErrorHandler);
+
 // db_connect
 
 db_connect()
@@ -82,16 +87,5 @@ db_connect()
   .catch((err) => {
     console.log(err.message);
   });
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 export default app;

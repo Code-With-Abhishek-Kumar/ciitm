@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import logger from './loggermiddleware.js';
+import logger from './loggerMiddleware.js';
 dotenv.config();
 
 const Login_Middleware = async (req, res, next) => {

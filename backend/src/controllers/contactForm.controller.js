@@ -1,21 +1,24 @@
 import contactSchema from '../models/contact.model.js';
-
+import courseSchemaJoi from '../validation/contactValidation.js';
+// import logger from '../middleware/loggerMiddleware.js';
 // Handle Contact Form Submission
 export const Handle_ContactForm = async (req, res) => {
   try {
-    // Extract data from the request body
+    console.log('Received data:', req.body);
     const { cName, cEmail, cNumber, cMessage, cCountry } = req.body;
 
-    // Check if all required fields are present
-    if (!cName || !cEmail || !cMessage || !cNumber || !cCountry) {
-      const error = new Error(
-        '⚠️ Name, Email, country, Number, and message are required fields. Please fill them out. ✍️'
-      );
-      error.status = 400;
-      throw error;
+    const { error } = courseSchemaJoi.validate(req.body);
+
+    if (error) {
+      console.error('Validation Error Stack:', error.stack);
+
+      return res.status(400).json({
+        message: error.details[0].message, // Specific validation message
+        error: true,
+        details: error.details, // Detailed error information
+      });
     }
 
-    // Create a new contact form entry in the database
     const createdForm = await contactSchema.create({
       cName,
       cEmail,
@@ -24,14 +27,16 @@ export const Handle_ContactForm = async (req, res) => {
       cMessage,
     });
 
-    // Send a success response
     res.status(200).json({
       message:
         'We’ve received your form. Our team will review your query and get back to you as soon as possible. 😊',
       data: createdForm,
     });
   } catch (error) {
-    console.error(error.message);
+    // Log the error message for debugging
+    console.error('Error:', error.message);
+
+    // Send an error response
     res.status(error.status || 500).json({
       message: error.message,
       error: true,
@@ -42,7 +47,8 @@ export const Handle_ContactForm = async (req, res) => {
 // Retrieve All Contact Form Data from DataBase
 export const get_FormData = async (req, res) => {
   try {
-    console.log(req.sect);
+    //  res.status(200).json(res.session);
+    console.log('xyz', console.log(req.session));
     // Fetch all contact form entries from the database, sorted by creation date
     const contactData = await contactSchema.find().sort({ createdAt: -1 });
 

@@ -7,6 +7,7 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "lint": "eslint .",
+    "@eslint/config-inspector": "npx @eslint/config-inspector@latest",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -37,9 +38,11 @@
     "razorpay": "^2.9.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
-    "eslint": "^9.10.0",
-    "globals": "^15.9.0",
-    "prettier": "3.3.3"
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
   }
 }

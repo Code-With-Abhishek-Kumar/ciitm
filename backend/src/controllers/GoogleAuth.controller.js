@@ -1,80 +1,72 @@
 import StudentAuthentication from '../models/AuthenticationSchema.model.js';
 import jwt from 'jsonwebtoken';
-import logger from '../middleware/loggermiddleware.js';
+import logger from '../middleware/loggerMiddleware.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const GoogleAuth_Controller = async (req, res) => {
   try {
-    // Log token and user information
-    const { token, user } = req.user;
-    logger.info('Jwt Secret', process.env.JWT_SECRET);
+    const { token, user } = req.user; // Assuming req.user is populated by Passport
 
+    // Check if the user is authenticated
     if (!user) {
-      const error = new Error('User not authenticated');
-      error.status = 401;
-      throw error;
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    // Check if the token is available
+    if (!token) {
+      return res.status(403).json({ message: 'Token is missing' });
     }
 
     logger.info('User:', user);
-    // console.log()
-
-    if (!token) {
-      const error = new Error('Token is missing');
-      error.status = 403;
-      throw error;
-    }
-
     logger.info(`Fetched User token successfully: ${token}`);
-    let session = (req.session.userId = user.id);
 
-    res.cookie('token', token);
+    // Set session and cookie
+    req.session.userId = user.id; // Ensure req.session is set correctly
+    // res.cookie('token', token);
+    res.cookie('token', token, {
+      httpOnly: true, // Prevents JavaScript from accessing the cookie (helps mitigate XSS attacks)
+      secure: process.env.NODE_ENV === 'production', // Ensures the cookie is sent only over HTTPS in production
+      maxAge: 24 * 60 * 60 * 1000, // Sets the cookie's expiration to 1 day
+      sameSite: 'strict', // Helps prevent CSRF attacks by restricting how cookies are sent with cross-origin requests
+    });
 
+    // Verify the token
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
-        const error = new Error('Forbidden: Invalid token');
-        error.status = 403;
-        throw error;
+        return res.status(403).json({ message: 'Forbidden: Invalid token' });
       }
 
-      const id = decoded.token;
+      const id = decoded.token; // Adjust according to your token structure
       const User = await StudentAuthentication.findById(id);
 
+      // Check if user was found
       if (!User) {
-        const error = new Error('User Not Found');
-        error.status = 404;
-        throw error; // Throwing error if user is not found
+        return res.status(404).json({ message: 'User Not Found' });
       }
 
-      logger.info({ User }, 'Fetched 1 User successfully');
-      const role = User.role;
-      // logger.info(`Fetched User Role successfully: ${role}`);
-      // logger.info(`Fetched User Token successfully: ${token}`);
-      // logger.info(`Fetched User Session successfully: ${session}`);
-      return res.redirect('/');
-      // Role-based redirection
-      // if (role === 'admin') {
-      //   return res.redirect('/admin');
-      // } else if (role === 'student') {
-      //   return res.redirect('/student');
-      // } else if (role === 'teacher') {
-      //   return res.redirect('/teacher');
-      // } else {
-      //   return res.redirect('/');
-      // }
+      logger.info({ User }, 'Fetched User successfully');
+
+      // res.redirect('/')
+
+      // Send the response
+      return res.status(200).json({ message: 'Login successful', user: User });
     });
   } catch (error) {
-    // logger.error({
-    //   message: error.message,
-    //   status: error.status || 500,
-    //   stack: error.stack,
-    // });
-
-    return res.status(error.status || 500).json({
-      message: error.message || 'Internal Server Error',
-      error: true,
+    logger.error({
+      message: error.message,
+      status: error.status || 500,
+      stack: error.stack,
     });
+
+    // Make sure to send a response in case of an error
+    if (!res.headersSent) {
+      return res.status(error.status || 500).json({
+        message: error.message || 'Internal Server Error',
+        error: true,
+      });
+    }
   }
 };
 
