@@ -55,3 +55,29 @@ The request must include the following form-data parameters:
 | `imageName`        | String | The title of the image.                  | No       |
 | `imageDescription` | String | A brief Description of image.            | No       |
 | `imageFile`        | File   | An image file associated with the Image. | Yes      |
+
+<!--  -->
+
+### Send Mail
+
+`Endpoint`
+
+```bash
+POST admin/sendMail
+```
+
+### Request
+
+#### Headers
+
+- **Content-Type:** `application/x-www-form-urlencoded`
+
+#### Body Parameters
+
+The request must include the following form-data parameters:
+
+| Parameter        | Type   | Description                         | Required |
+| ---------------- | ------ | ----------------------------------- | -------- |
+| `subject`        | String | The subject line of the email.      | Yes      |
+| `html`           | String | The HTML content of the email body. | Yes      |
+| `recipientEmail` | String | The email address of the recipient. | Yes      |

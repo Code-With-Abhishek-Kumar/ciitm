@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ciitmImage from '../assets/Image/ciitm-image.png';
 import Typed from 'typed.js';
 
@@ -12,7 +12,9 @@ const HeroSection = () => {
         '<b>BBA Program 📈</b> ',
       ],
       smartBackspace: true,
+      loop: true,
     };
+
     const typed = new Typed('#typed', options);
 
     return () => {

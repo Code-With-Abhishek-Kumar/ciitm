@@ -7,18 +7,23 @@ import logger from '../middleware/loggerMiddleware.js';
 export const createAlbum = async (req, res) => {
   try {
     let { albumDescription, albumName } = req.body;
+    console.log(req.body);
     let { filename } = req.file;
 
-    let { error } = AlbumSchemaJoi.validate(req.body, filename);
-    logger.error(error.message);
-    let message = error.message;
-    logger.error(message);
+    let { error } = AlbumSchemaJoi.validateAsync({
+      albumImage: filename,
+      albumDescription,
+      albumName,
+      Images: [],
+    });
+
+
 
     // ! Handle Error When album Data are Blank
 
     if (error) {
       let error = new Error();
-      error.message = message;
+      error.message,
       error.status = 400;
       throw error;
     }
@@ -26,7 +31,7 @@ export const createAlbum = async (req, res) => {
     let createdAlbum = await albumSchema.create({
       aName: albumName,
       aDescription: albumDescription,
-      aImage: 'public/upload/' + filename,
+      aImage: filename,
     });
 
     if (!createdAlbum) {
@@ -63,7 +68,7 @@ export const deleteAlbum = async (req, res) => {
       throw error;
     }
 
-    fs.rm(`${findAlbum.aImage}`, { recursive: true, force: true }, (err) => {
+    fs.rm(`public/upload/+${findAlbum.aImage}`, { recursive: true, force: true }, (err) => {
       if (err) {
         logger.error('Error deleting directory:', err);
         return;
@@ -86,7 +91,6 @@ export const deleteAlbum = async (req, res) => {
 
 export const getAlbum = async (req, res) => {
   try {
-
     // console.log(req.session.userId)
     logger.info('Fetching albums...');
     let getAlbum = await albumSchema.find().sort({ createdAt: -1 });

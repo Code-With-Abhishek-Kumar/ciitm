@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router } from 'express';
 import passport from 'passport';
 import dotenv from 'dotenv';
 
@@ -12,12 +12,22 @@ dotenv.config();
 import { Handle_ContactForm } from '../controllers/contactForm.controller.js';
 import { getAlbum } from '../controllers/album.controller.js';
 import GoogleAuth_Controller from '../controllers/GoogleAuth.controller.js';
-import { pinoHttp } from 'pino-http';
-import pino from 'pino';
+// import { pinoHttp } from 'pino-http';
+// import pino from 'pino';
 
 var router = express.Router();
 
 Passport_Google();
+
+import Login_Middleware from '../middleware/Login_middleware.js';
+
+// Router.get('/profile', Login_Middleware , (req, res) => {
+//   if (req.session.userId) {
+//       res.send(`User ID: ${req.session.userId}`);
+//   } else {
+//       res.status(401).send('Not authenticated');
+//   }
+// });
 
 router.get(
   '/auth/google',
@@ -29,6 +39,23 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/auth/google/failure' }),
   GoogleAuth_Controller
 );
+
+router.get('/profile', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
+  res.json({ user: req.user }); // Access the user data
+});
+
+router.get('/a', (req, res) => {
+  console.log(req.session);
+  console.log(req.cookies);
+  res.send('a');
+  // res.json({
+  //   "section" : req.session,
+  //   "cookie": req.cookies,
+  // })
+});
 
 router.get('/api/logout', (req, res) => {
   req.logout();
@@ -60,7 +87,7 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/about', function (req, res, next) {
+router.get('/about', function (req, res) {
   console.log(req.user);
   res.render('about', { title: 'About CIITM' });
 });

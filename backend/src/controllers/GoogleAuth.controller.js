@@ -23,16 +23,35 @@ const GoogleAuth_Controller = async (req, res) => {
     logger.info(`Fetched User token successfully: ${token}`);
 
     // Set session and cookie
-    req.session.userId = user.id; // Ensure req.session is set correctly
+    // req.session.userId = user.id; // Ensure req.session is set correctly
     // res.cookie('token', token);
+    // res.cookie('token', token, {
+    //   httpOnly: true, // Prevents JavaScript from accessing the cookie (helps mitigate XSS attacks)
+    //   secure: process.env.NODE_ENV === 'production', // Ensures the cookie is sent only over HTTPS in production
+    //   maxAge: 24 * 60 * 60 * 1000, // Sets the cookie's expiration to 1 day
+    //   sameSite: 'strict', // Helps prevent CSRF attacks by restricting how cookies are sent with cross-origin requests
+    // });
+
+    // Set session and cookie (if required)
+    // res.cookie('name', token, {
+    //   expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days
+    //   secure: process.env.NODE_ENV === 'production',
+    //   httpOnly: true, // Prevents JavaScript from accessing the cookie
+    //   // sameSite: 'Strict', // Helps prevent CSRF attacks
+    // }).json({
+    //   success: true,
+    //   message: 'Cookie has been set',
+    // })
+
     res.cookie('token', token, {
-      httpOnly: true, // Prevents JavaScript from accessing the cookie (helps mitigate XSS attacks)
-      secure: process.env.NODE_ENV === 'production', // Ensures the cookie is sent only over HTTPS in production
-      maxAge: 24 * 60 * 60 * 1000, // Sets the cookie's expiration to 1 day
-      sameSite: 'strict', // Helps prevent CSRF attacks by restricting how cookies are sent with cross-origin requests
+      expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days
+      secure: process.env.NODE_ENV === 'production', // Only send over HTTPS in production
+      httpOnly: true, // Prevents JavaScript from accessing the cookie
+      sameSite: 'Strict', // Helps prevent CSRF attacks
     });
 
-    // Verify the token
+    // req.session.userId = user.id;
+
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
         return res.status(403).json({ message: 'Forbidden: Invalid token' });

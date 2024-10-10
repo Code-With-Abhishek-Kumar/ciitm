@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import NavBar from './Components/navBar'; // Capitalized NavBar
 import Home from './Components/Hero';
 import './App.css';
+import Events from './Components/ Events';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <NavBar />
       <Home />
+      <Events />
     </>
   );
 }

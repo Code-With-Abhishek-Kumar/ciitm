@@ -1,9 +1,13 @@
 import express from 'express';
 const router = express.Router();
+
 // import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 import upload from '../utils/multerUtils.js';
+
+import { SendMail } from '../controllers/sendMail.controller.js';
+
 import {
   delete_FormData,
   get_FormData,
@@ -18,27 +22,28 @@ import {
   deleteImage,
 } from '../controllers/album.controller.js';
 
-// MiddleWare
-import Login_Middleware from '../middleware/Login_middleware.js';
+// s%3Anf3nddH4PQ-FiueJtj4jnuj4tvdZr1fe.JH51VVI6ktloxhkGc053p08vtC8F0jpU4vU9toj7y2c
 
-router.get('/', Login_Middleware, function (req, res) {
+router.get('/', function (req, res) {
   res.render('Admin/adminDashboard');
 });
+
+router.post('/sendMail', SendMail);
 
 /* -------------------------------------------------------------------------- */
 /*        handles routes related to the Contact Us feature                   */
 /* -------------------------------------------------------------------------- */
 
-router.get('/contact/Inbox', Login_Middleware, (req, res) => {
+router.get('/contact/Inbox', (req, res) => {
   res.render('Admin/contactAdmin');
 });
 
-router.get('/contact/Inbox/message', Login_Middleware, get_FormData);
-router.get('/contact/Inbox/message/view/:id', Login_Middleware, view_FormData);
+router.get('/contact/Inbox/message', get_FormData);
+router.get('/contact/Inbox/message/view/:id', view_FormData);
 
 router.delete(
   '/contact/Inbox/message/delete/:id',
-  // Login_Middleware,
+  //
   delete_FormData
 );
 
@@ -46,14 +51,14 @@ router.delete(
 /*     Handles routes related to  Album and Image                            */
 /* -------------------------------------------------------------------------- */
 
-router.get('/albums', Login_Middleware, (req, res) => {
+router.get('/albums', (req, res) => {
   res.render('Admin/AlbumCreate');
 });
 
-router.get('/album', Login_Middleware, getAlbum);
+router.get('/album', getAlbum);
 router.post(
   '/create/albums',
-  // Login_Middleware,
+
   upload.single('albumImage'),
   createAlbum
 );

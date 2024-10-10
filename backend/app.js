@@ -24,16 +24,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Session middleware
-// Session middleware
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Secret for signing the session ID
-    resave: false, // Prevents session from being saved if it wasn't modified
-    saveUninitialized: false, // Don't create sessions until something is stored
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      // httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-      maxAge: 24 * 60 * 60 * 1000, // Cookie expiration time (1 day)
+      // secure: false, // Set to true if using HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // Session expires after 24 hours
     },
   })
 );
@@ -62,6 +61,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(path.resolve(), 'public')));
+app.use('/images', express.static(path.join(path.resolve(), 'public' , 'upload')));
 
 // Middleware to log messages with lolcat
 app.use((req, res, next) => {
